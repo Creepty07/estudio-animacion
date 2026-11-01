@@ -1,0 +1,6 @@
+pycairo
+numpy
+scipy
+soundfile
+librosa
+kokoro-onnx

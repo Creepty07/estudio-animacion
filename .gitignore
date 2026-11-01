@@ -1,0 +1,5 @@
+out/
+models/
+__pycache__/
+*.pyc
+*.tmp.mp4
