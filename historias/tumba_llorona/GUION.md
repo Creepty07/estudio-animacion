@@ -1,6 +1,6 @@
 # La Tumba de la Llorona: guion
 
-**Estado:** borrador v1 (2026-11-01). **Pendiente de aprobación de Alejandro. No animar sin su visto bueno.**
+**Estado:** v1 aprobada por Alejandro (2026-11-01) y producida. Video final de 60.5 s. Abajo, los subtítulos como quedaron en pantalla.
 
 ## Brief
 
@@ -58,3 +58,25 @@ Tiempos calculados con las líneas reales generadas con `em_alex` 1.05. Las lín
 - **Voz nueva:** efecto `espectro` en `motor/audio/` (es genérico y reutilizable).
 - **`SAY` a revisar:** "Tenochtitlan", "cempasúchil", "Aaay". Claude no puede escuchar: Alejandro debe confirmar cómo suenan.
 - **Zona segura:** la lápida con el nombre y la tarjeta de cierre van entre el 12 % y el 70 % de la altura, lejos de la columna derecha.
+
+## Subtítulos finales (como salen en el video)
+
+Máximo 2 líneas por subtítulo (~34 caracteres por línea). Narrador `em_alex` 1.05 salvo donde se indica.
+
+| # | Inicio local (s) | Subtítulo |
+|---|---|---|
+| 1 | 0.25 | En Día de Muertos, todos los muertos vuelven a casa. |
+| 2 | 0.0 / 1.6 | Todos... menos una. · ¡Aaay, mis hijos! (Llorona) |
+| 3 | 0.2 / 2.5 | Esa noche, Tomás veló a su abuelo · en el panteón, junto al canal. |
+| 4 | 0.2 | Al fondo, una tumba sin nombre. Sin velas. Sin flores. |
+| 5 | 0.2 / 2.55 | Su abuela le advirtió: esa no se toca. · Es de la Llorona. Está vacía... porque ella sigue buscando. |
+| 6 | 0.3 / 2.7 / 5.3 | Antes de que llegaran los españoles, · Tenochtitlan ya la oía gritar de noche: · ¡Hijitos míos! ¿A dónde los llevaré? |
+| 7 | 0.2 / 2.9 | Siglos después, la contaban como una madre · que perdió a sus hijos en el agua. |
+| 8 | 0.2 / 2.6 | A medianoche, las velas se apagaron, · una por una, rumbo al canal. |
+| 9 | 0.3 | ¡Ay, mis hijos! (Llorona) |
+| 10 | 0.2 / 2.5 | Tomás no corrió. Le dio lástima, · y dejó un cempasúchil sobre la piedra. |
+| 11 | 0.2 / 2.4 | El llanto se detuvo. · ¿Eres tú... mi niño? (Llorona, susurro) |
+| 12 | 0.4 | Al amanecer, la tumba seguía vacía... pero ya tenía nombre. |
+| 13 | 0.3 | ¿Tú le habrías dejado la flor? Comenta sí o no. |
+
+Notas de producción: el lamento de fondo es sintético (no se pudo descargar un sonido real desde el entorno). Si Alejandro consigue un archivo con licencia libre (CC0), se integra en `sonido/mix_ep1.py`.

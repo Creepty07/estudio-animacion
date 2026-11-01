@@ -156,3 +156,70 @@ def sting(kind):
         s = 0.5 * thump(60, 4.0, 0.5) + pad([146.8, 185.0, 220.0, 293.7, 370.0], 4.0, 0.08, 1.8, 2600, 9)
         s += 0.3 * pad([587.3, 740.0, 880.0], 4.0, 0.4, 1.8, 5000, 10)
     return norm(s)
+
+
+# ---------- folclore y exteriores nocturnos ----------
+def candle_puff(seed=0):
+    """Soplo que apaga una vela: ráfaga corta de aire y un siseo."""
+    puff = band(noise(0.28, 700 + seed), 500, 3500) * np.hanning(n(0.28)) ** 0.8
+    hiss = band(noise(0.5, 800 + seed), 3000, 9000) * env_exp(n(0.5), 0.12) * 0.25
+    out = np.zeros(n(0.6))
+    out[: len(puff)] += puff
+    out[: len(hiss)] += hiss
+    return norm(out)
+
+
+def bell(freq=392.0, dur=5.0, seed=3):
+    """Campana lejana: parciales inarmónicos con caída larga."""
+    parts = [freq * r for r in (1.0, 2.01, 2.4, 3.0, 4.18, 5.43)]
+    return fade(norm(metal(parts, dur, 1.7, seed)), 0.005, 1.2)
+
+
+def wail(dur=2.4, f0=430.0, f_peak=980.0, f1=520.0, seed=3):
+    """Lamento largo y agudo: tono que sube y cae, con vibrato y aire. No es una voz: es el 'grito' del viento."""
+    t = tt(dur)
+    k = t / dur
+    up = np.clip(k / 0.4, 0, 1)
+    down = np.clip((k - 0.4) / 0.6, 0, 1)
+    f = np.where(k < 0.4, f0 + (f_peak - f0) * up ** 1.5, f_peak + (f1 - f_peak) * down ** 0.8)
+    f = f * (1 + 0.018 * np.sin(2 * np.pi * 5.6 * t))
+    ph = 2 * np.pi * np.cumsum(f) / SR
+    sig = sum(a * np.sin(h * ph) for h, a in enumerate((1.0, 0.6, 0.35, 0.2, 0.1), start=1))
+    sig = band(sig, 400, 3800)
+    sig += 0.25 * band(noise(dur, seed), 1500, 6000)
+    env = np.minimum(1, t / 0.25) * np.exp(-np.maximum(t - dur * 0.55, 0) / (dur * 0.3))
+    return fade(norm(sig * env), 0.02, 0.3)
+
+
+def step_dirt(seed=0):
+    """Paso sobre tierra suelta."""
+    s = 1.0 * thump(70, 0.2, 0.04) + 0.5 * band(noise(0.2, 400 + seed), 200, 1800) * env_exp(n(0.2), 0.03)
+    return norm(s)
+
+
+def petal_touch(seed=0):
+    """Una flor que se posa sobre piedra: toque casi inaudible."""
+    return norm(0.6 * thump(130, 0.15, 0.03) + 0.3 * band(noise(0.15, 600 + seed), 1500, 6000) * env_exp(n(0.15), 0.02))
+
+
+def water_close(dur=1.6):
+    """El agua que se cierra: swell de agua y un 'plop' que se hunde."""
+    swell = band(noise(dur, 910), 200, 2600) * np.hanning(n(dur)) ** 1.5
+    plop = sweep(900, 180, 0.35) * env_exp(n(0.35), 0.1)
+    out = swell * 0.7
+    i = n(dur * 0.45)
+    out[i:i + len(plop)] += plop
+    return fade(norm(out), 0.05, 0.6)
+
+
+def chisel(seed=0):
+    """Golpecito de cincel sobre piedra."""
+    return norm(metal([1800, 2900, 4100], 0.12, 0.03, seed) + 0.4 * thump(200, 0.12, 0.02))
+
+
+def cold_touch(dur=1.8):
+    """Roce helado: aire que se vuelve agudo y tiembla."""
+    t = tt(dur)
+    s = band(noise(dur, 940), 2500, 9000) * np.hanning(n(dur))
+    s += 0.4 * np.sin(2 * np.pi * np.cumsum(3800 + 400 * np.sin(2 * np.pi * 7 * t)) / SR) * np.hanning(n(dur))
+    return norm(s)

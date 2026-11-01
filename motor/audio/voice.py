@@ -43,4 +43,42 @@ def fx_radio(x):
     return norm(y + static, 0.85)
 
 
-FX = {"none": fx_none, "robot": fx_robot, "agora": fx_agora, "radio": fx_radio}
+def _vibrato(x, depth=0.0007, rate=5.2):
+    """Oscilación leve de tono (retardo variable): la voz 'tiembla' como si no estuviera del todo ahí."""
+    n = len(x)
+    idx = np.arange(n) + depth * SR * np.sin(2 * np.pi * rate * np.arange(n) / SR)
+    return np.interp(idx, np.arange(n), x)
+
+
+def _tail(x, taps):
+    """Ecos largos y cada vez más opacos (taps = (retardo s, ganancia, corte agudo Hz))."""
+    out = np.concatenate([x, np.zeros(int(max(d for d, _, _ in taps) * SR) + 1)])
+    for delay, gain, hi in taps:
+        d = int(delay * SR)
+        out[d:d + len(x)] += gain * band(x, 150, hi)
+    return out
+
+
+def fx_espectro(x):
+    """La Llorona: voz que tiembla, con un doble grave desafinado, aire y ecos largos."""
+    import librosa
+    y = _vibrato(x)
+    low = librosa.effects.pitch_shift(np.asarray(y, dtype=float), sr=SR, n_steps=-4)
+    y = 0.8 * y + 0.45 * low
+    env = np.convolve(np.abs(y), np.ones(int(0.03 * SR)) / int(0.03 * SR), mode="same")
+    air = band(np.random.default_rng(17).standard_normal(len(y)), 800, 5000)
+    y = y + 0.35 * air * env / max(env.max(), 1e-6)
+    return norm(_tail(band(y, 120, 9000), ((0.21, 0.5, 3500), (0.43, 0.36, 2800), (0.69, 0.24, 2200), (0.97, 0.13, 1800))), 0.85)
+
+
+def fx_susurro(x):
+    """Susurro: se conserva el contorno de la voz pero con fase al azar (suena a aire, sin tono), más eco."""
+    import librosa
+    spec = librosa.stft(np.asarray(x, dtype=float), n_fft=1024, hop_length=256)
+    phase = np.exp(1j * np.random.default_rng(5).uniform(0, 2 * np.pi, spec.shape))
+    y = librosa.istft(np.abs(spec) * phase, hop_length=256, length=len(x))
+    return norm(_tail(band(y, 300, 7000), ((0.18, 0.35, 3000), (0.4, 0.22, 2400), (0.7, 0.12, 1800))), 0.85)
+
+
+FX = {"none": fx_none, "robot": fx_robot, "agora": fx_agora, "radio": fx_radio,
+      "espectro": fx_espectro, "susurro": fx_susurro}

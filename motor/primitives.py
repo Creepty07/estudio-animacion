@@ -162,6 +162,13 @@ def camera(ctx, scale, fx, fy, dx=0.0, dy=0.0):
     ctx.translate(-fx, -fy)
 
 
+def camera_center(ctx, scale, cx, cy, dx=0.0, dy=0.0):
+    """Zoom que además lleva el punto (cx, cy) del mundo al centro de la pantalla (travelling + zoom)."""
+    ctx.translate(config.W / 2 + dx, config.H / 2 + dy)
+    ctx.scale(scale, scale)
+    ctx.translate(-cx, -cy)
+
+
 # ---------- texto ----------
 def font(ctx, size, family=None, bold=False, italic=False):
     ctx.select_font_face(
