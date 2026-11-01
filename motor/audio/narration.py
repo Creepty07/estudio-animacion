@@ -11,8 +11,30 @@ from motor.audio.tts import speak
 from motor.audio.voice import FX
 
 
+def _desde_archivo(path):
+    """Línea real grabada (WAV/MP3/OGG con licencia libre): mono, a 48 kHz y sin silencios en los extremos."""
+    import librosa
+    import numpy as np
+    from motor.config import SR
+    data, _ = librosa.load(str(path), sr=SR, mono=True)
+    idx = np.where(np.abs(data) > 0.01)[0]
+    if len(idx):
+        data = data[max(0, idx[0] - int(0.02 * SR)): idx[-1] + int(0.08 * SR)]
+    return data / max(np.abs(data).max(), 1e-6) * 0.85
+
+
 def line_audio(text, speaker):
+    """Voz de una línea. Si el personaje trae 'file' y existe, usa esa grabación; si no, 'voice' (Kokoro) o,
+    con voice=None, el sonido sintetizado de FX[fx] con la duración 'dur' (cada texto cambia la semilla)."""
+    import numpy as np
+    from motor.config import SR
     style = config.VOICES[speaker or "NARRADOR"]
+    f = style.get("file")
+    if f and (config.ROOT / f).exists():
+        return _desde_archivo(config.ROOT / f) * style["gain"]
+    if style.get("voice") is None:
+        raw = np.zeros(int(style["dur"] * SR))
+        return FX[style["fx"]](raw) * style["gain"] if style["fx"] != "grito" else FX["grito"](raw, seed=len(text)) * style["gain"]
     raw = speak(config.SAY.get(text, text), style["voice"], style["speed"])
     return FX[style["fx"]](raw) * style["gain"]
 

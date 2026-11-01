@@ -19,7 +19,10 @@ def frame(name, scene, t_out, surface):
     ctx = cairo.Context(surface)
     ctx.set_source_rgb(0, 0, 0)
     ctx.paint()
-    scene.draw(ctx, timeline.to_local(name, t_out))
+    local = timeline.to_local(name, t_out)
+    scene.draw(ctx, local)
+    if config.GRADE:
+        config.GRADE(ctx, local, name)                       # look de la historia (color, grano), antes de los subtítulos
     if config.SUBTITLES and scene.SUBS:
         ctx.identity_matrix()
         draw_subs(ctx, t_out, timeline.subtitles(name))

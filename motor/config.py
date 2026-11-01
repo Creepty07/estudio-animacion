@@ -41,6 +41,7 @@ VOICE_PAD = 0.35                # silencio mínimo después de cada línea
 MAX_STRETCH = 2.2               # lo más que se alarga un tramo de escena para que quepa su línea
 
 # ---------- historia activa ----------
+GRADE = None                    # función opcional (ctx, t_local, nombre_escena) con el look final de la historia
 STORY = None
 EPISODES = {}
 OUT = SCENES_DIR = STILLS_DIR = AUDIO_DIR = VOICE_MANIFEST = None

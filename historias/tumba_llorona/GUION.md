@@ -80,3 +80,11 @@ Máximo 2 líneas por subtítulo (~34 caracteres por línea). Narrador `em_alex`
 | 13 | 0.3 | ¿Tú le habrías dejado la flor? Comenta sí o no. |
 
 Notas de producción: el lamento de fondo es sintético (no se pudo descargar un sonido real desde el entorno). Si Alejandro consigue un archivo con licencia libre (CC0), se integra en `sonido/mix_ep1.py`.
+
+## Versión 2 (2026-11-01): más sombría
+
+- Narrador `em_alex` a 0.95 (antes 1.05) con efecto `tetrico`: más graves y una sala pequeña, sin cambiar el tono.
+- El grito de la Llorona ya no es TTS: se usa `historias/tumba_llorona/audio/grito_llorona.wav` si existe (grabación con licencia libre); si no, se sintetiza un lamento cantado (`grito_sintetico`).
+- Susurro con `susurro_suave` (se entiende; antes el efecto con fase al azar lo volvía ruido).
+- Color: gradación global `GRADE` (desaturar, frío, viñeta, grano). Sonido: drones graves disonantes, campana más grave, grillos solo en el panteón.
+- Duración: ~68 s (la narración más lenta alarga las escenas).

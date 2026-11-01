@@ -20,11 +20,13 @@ EPISODES = {
     },
 }
 
-# Narrador fijo (igual que La rebelión). La Llorona solo habla dos veces: el grito y un susurro.
+# Narrador fijo. La Llorona solo "habla" dos veces. Su grito NO es TTS: si existe el archivo de abajo (grabación con
+# licencia libre) se usa tal cual; si no, se sintetiza un lamento cantado (ver motor/audio/voice.py: grito_sintetico).
 VOICES = {
-    "NARRADOR": {"voice": "em_alex", "speed": 1.05, "fx": "none", "gain": 1.0},
-    "LLORONA": {"voice": "ef_dora", "speed": 0.85, "fx": "espectro", "gain": 0.9},
-    "LLORONA (SUSURRO)": {"voice": "ef_dora", "speed": 0.8, "fx": "susurro", "gain": 0.85},
+    "NARRADOR": {"voice": "em_alex", "speed": 0.95, "fx": "tetrico", "gain": 1.0},
+    "LLORONA": {"voice": None, "dur": 1.3, "fx": "grito", "gain": 0.9,
+                "file": "historias/tumba_llorona/audio/grito_llorona.wav"},
+    "LLORONA (SUSURRO)": {"voice": "ef_dora", "speed": 0.85, "fx": "susurro_suave", "gain": 0.9},
 }
 # Texto del subtítulo -> cómo se pronuncia (la sílaba tónica de Tenochtitlán es la última)
 SAY = {
@@ -49,3 +51,16 @@ ALBA = (1.0, 0.60, 0.50)
 REBOZO = (0.17, 0.27, 0.31)
 SUDADERA = (0.10, 0.12, 0.18)
 PIEL = (0.66, 0.46, 0.34)
+
+
+# ---------- look final: más sombrío ----------
+# (desat, frio, viñeta, grano) por escena; la apertura y el cierre conservan más color para el contraste.
+_LOOK = {"s01": (0.30, 0.30, 0.30, 0.08), "s02": (0.45, 0.45, 0.30, 0.10), "s12": (0.25, 0.10, 0.25, 0.08),
+         "s13": (0.10, 0.15, 0.20, 0.06)}
+_LOOK_NOCHE = (0.52, 0.55, 0.40, 0.11)
+
+
+def GRADE(ctx, t, name):
+    from motor import grade
+    d, f, v, g = _LOOK.get(name.split(".")[-1][:3], _LOOK_NOCHE)
+    grade.final(ctx, t, desat=d, frio=f, viñeta=v, grano=g)

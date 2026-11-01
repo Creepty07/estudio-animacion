@@ -4,6 +4,7 @@ from motor.config import SR
 from motor.audio import sfx
 from motor.audio import ambient
 from motor.audio.synth import noise, band, norm, env_exp, fade, sweep, tt, thump, pad
+from motor.audio.voice import grito_sintetico
 from motor.audio.master import master
 from motor.audio.mixing import scene_offsets, new_track
 
@@ -16,23 +17,26 @@ def build():
     fin = {k: T[k] + M[k].DURATION for k in T}
 
     # ---------- fondos ----------
-    tr.add(ambient.wind(fin["s10"] - T["s01"] + 1.5, 5), T["s01"], 0.20)             # viento de toda la noche
-    tr.add(ambient.crickets(fin["s10"] - T["s03"], 7), T["s03"], 0.10)               # grillos desde el panteón
-    tr.add(ambient.crickets(1.8, 8), T["s11"], 0.07)                                  # y se cortan en el silencio
-    tr.add(ambient.lamp_hum(fin["s05"] - T["s04"], 52.0), T["s04"], 0.10)            # tensión: tumba y advertencia
+    tr.add(ambient.wind(fin["s10"] - T["s01"] + 1.5, 5, 90, 650, 0.45), T["s01"], 0.26)             # viento de toda la noche
+    tr.add(ambient.crickets(fin["s03"] - T["s03"], 7), T["s03"], 0.06)               # los grillos solo en el panteón; luego se callan               # grillos desde el panteón
+        # drones graves y disonantes (segunda menor) que crecen hasta el negro de la escena 11
+    tr.add(pad([41.2, 61.7, 82.4, 87.3], fin["s11"] - T["s03"] - 0.6, 2.5, 0.3, 450, 6), T["s03"], 0.20)
+    tr.add(ambient.lamp_hum(fin["s05"] - T["s04"], 43.0), T["s04"], 0.12)
     tr.add(ambient.water(M["s06"].DURATION + 0.6, 9), T["s06"] - 0.3, 0.22)           # lago del flashback
     tr.add(ambient.water(M["s07"].DURATION + 0.6, 10), T["s07"] - 0.3, 0.26)          # canal
     tr.add(pad([73.4, 110.0, 146.8], M["s07"].DURATION + 0.8, 1.5, 1.2, 600, 2), T["s07"] - 0.4, 0.14)
-    tr.add(ambient.dawn_birds(M["s12"].DURATION + 0.6, 11, 16), T["s12"] - 0.2, 0.30)
+    tr.add(ambient.dawn_birds(M["s12"].DURATION + 0.6, 11, 8), T["s12"] - 0.2, 0.20)
     tr.add(ambient.wind(M["s12"].DURATION + M["s13"].DURATION, 6, 150, 700, 0.3), T["s12"], 0.10)
 
     # ---------- escena 1: campana lejana ----------
-    tr.add(sfx.bell(392.0, 5.0), T["s01"] + 0.15, 0.30, 0.2)
+    tr.add(sfx.bell(196.0, 6.0), T["s01"] + 0.15, 0.30, 0.2)
 
     # ---------- escena 2: la vela se apaga, negro, grito y título ----------
     s2 = M["s02"]
     tr.add(sfx.candle_puff(0), T["s02"] + s2.APAGA, 0.45)
-    tr.add(sfx.wail(2.4, 430, 980, 520, 3), T["s02"] + 1.55, 0.16)                    # lamento bajo la voz de la Llorona
+    n_sw = int(1.1 * SR)                                                              # swell inverso que sube hacia el título
+    sw = band(noise(1.1, 12), 700, 6000) * np.linspace(0, 1, n_sw) ** 2.5
+    tr.add(norm(sw), T["s02"] + s2.TITULO - 1.1, 0.20)
     boom = thump(48, 3.0, 1.1) + 0.3 * band(noise(3.0, 1), None, 180) * env_exp(int(3.0 * SR), 0.4)
     tr.add(boom, T["s02"] + s2.TITULO, 0.85)
     r = np.random.default_rng(3)
@@ -51,7 +55,7 @@ def build():
         g = min(0.45, g + 0.012)
 
     # ---------- escena 6: grito lejano bajo "¡Hijitos míos!" ----------
-    tr.add(sfx.wail(2.6, 380, 820, 430, 4), T["s06"] + M["s06"].GRITO - 0.1, 0.13, 0.5)
+    tr.add(grito_sintetico(2.2, 9, lejano=True), T["s06"] + M["s06"].GRITO - 0.1, 0.12, 0.5)   # grito lejano bajo la voz
 
     # ---------- escena 8: un soplo por cada vela ----------
     for i, a in enumerate(M["s08"].APAGONES):
@@ -60,7 +64,6 @@ def build():
     # ---------- escena 9: el grito ----------
     g9 = M["s09"].GRITO
     tr.add(thump(44, 2.2, 0.7) + 0.4 * band(noise(2.2, 4), None, 220) * env_exp(int(2.2 * SR), 0.3), T["s09"] + g9, 0.9)
-    tr.add(sfx.wail(2.2, 520, 1100, 600, 5), T["s09"] + g9, 0.18)
 
     # ---------- escena 10: pasos y la flor ----------
     s10 = M["s10"]
@@ -84,6 +87,6 @@ def build():
     tr.add(thump(42, 2.4, 0.9), T["s12"] + s12.LETRAS[-1] + 0.15, 0.7)
 
     # ---------- escena 13: cierre ----------
-    tr.add(sfx.bell(523.3, 4.0, 5), T["s13"] + 0.15, 0.22, -0.2)
+    tr.add(sfx.bell(261.6, 5.0, 5), T["s13"] + 0.15, 0.24, -0.2)
 
     return master(tr.buf, total_out, voices, 0.5), total_out
