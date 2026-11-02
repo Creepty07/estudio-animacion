@@ -3,3 +3,4 @@ models/
 __pycache__/
 *.pyc
 *.tmp.mp4
+.venv*/
