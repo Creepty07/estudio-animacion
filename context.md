@@ -1,6 +1,6 @@
 # context.md — Memoria del estudio
 
-Última actualización: 2026-11-02 14:05 · sesión de organización (Opus 5.5): **Fase 4 hecha**: subagentes en `.claude/agents/`, permisos y hook de `git pull` en `.claude/settings.json` (CLAUDE.md §10.1). Antes, 12:40: **migración a Claude Code iniciada** (Alejandro aprobó; arranca en la PC del tío). La memoria del estudio pasa al repo: este archivo, CLAUDE.md y `docs/estudio/`. `setup.sh` ya funciona como usuario normal en WSL (sudo + `.venv`). Antes, 12:20: equipo de cómputo; 12:15: evaluación de la migración; 10:35: estudio por sesiones, herramientas, cuenta y concepto.
+Última actualización: 2026-11-02 14:10 · sesión de organización (PC del tío): **Fase 1-2 de la migración hecha** (setup + render de prueba de El río de los perros: 6 min, -13.6 LUFS; ver §5).
 
 ## 0. Mapa de documentos (empieza aquí)
 
@@ -145,6 +145,7 @@ Se actualizan cuando Alejandro comparta capturas de TikTok Studio (vistas, reten
 - 2026-11-02: Las skills de terceros "de TTS" que hay en los registros (p. ej. `voice-chatterbox-tts`) no se pueden auditar bien o dependen de servicios de pago. Es más seguro escribir el módulo de voz dentro del motor.
 - 2026-11-02: Social Media Skills (MIT) es de buena calidad (no inventa métricas, no promete viralidad, gancho de ~1 s, retención, búsqueda), pero empuja a WoopSocial, ElevenLabs y Veo (de pago): esas partes se ignoran.
 - 2026-11-02: En WSL/Ubuntu como usuario normal, el `setup.sh` original fallaba: `apt-get` necesita `sudo` y Ubuntu no deja usar `pip` en el Python del sistema. Ahora, si no es root, usa `sudo` y crea `.venv/` (instala además `python3-venv`, `python3-dev` y `build-essential` para compilar pycairo). Probado en la nube con `ESTUDIO_VENV=1`: instala en ~2.5 min y `--cuadros` renderiza bien. En la nube (root) sigue igual que antes.
+- 2026-11-02 (organización, PC del tío): **Fase 1-2 hecha.** WSL/Ubuntu con 12 hilos, 15 GB de RAM, 954 GB libres y RTX 2060 SUPER (driver 581.95, 8 GB, `nvidia-smi` funciona en Ubuntu). `setup.sh` tardó 1 min 27 s tras instalar con apt los paquetes del sistema (necesita `sudo` con contraseña: la primera vez hay que correr el `apt-get install` a mano en una terminal). **Render completo de El río de los perros: 6 min 1 s** (nube: 7.5 min; la mejora es modesta porque Cairo dibuja en CPU y las escenas de más cuadros tardan 60-80 s cada una). Resultado idéntico a la nube: 84.7 s, 1080×1920 a 30 fps, -13.6 LUFS, pico -0.7 dBFS, 57 MB sin recomprimir. No se hizo `.wslconfig` (WSL ya ve los 15 GB). Pendiente: confirmar si la RAM de esta PC es 16 GB (se ven 15).
 - 2026-11-02: `project_write` reemplaza el doc completo. Con varias sesiones, escribir `context.md` desde una copia vieja borra lo que escribió otra sesión: siempre se lee justo antes de escribir.
 
 ## 6. Calendario y contexto
@@ -195,7 +196,7 @@ Cada pendiente indica quién lo hace: (Alejandro) o (sesión).
 - [x] (Alejandro) Decidir la migración a Claude Code de escritorio: **sí** (2026-11-02).
 - [x] (organización) Memoria del estudio al repo (CLAUDE.md, context.md, `docs/estudio/`) y `setup.sh` compatible con WSL (2026-11-02).
 - [ ] (Alejandro) **PC del tío:** permiso, WSL2 + Ubuntu, driver de NVIDIA al día (`nvidia-smi` en Ubuntu), app de escritorio de Claude → Code → sesión WSL. Pasos en `docs/estudio/migracion_claude_code.md` §5.
-- [ ] (primera sesión local, PC del tío) Fase 1-2: `gh auth login`, clonar en `~/estudio-animacion`, `./setup.sh`, render de prueba de El río de los perros midiendo tiempo y LUFS; anotar en §5.
+- [x] (hecho 2026-11-02, ver §5) Fase 1-2 en la PC del tío: `gh auth login`, clonar en `~/estudio-animacion`, `./setup.sh`, render de prueba de El río de los perros midiendo tiempo y LUFS; anotar en §5.
 - [ ] (Laboratorio, PC del tío) Fase 5: piloto de voz Chatterbox en GPU.
 - [x] (organización) Fase 4: 6 subagentes en `.claude/agents/`, permisos y hook de `git pull` en `.claude/settings.json` (2026-11-02). Falta probarlos en la PC del tío (`/agents`, `/status`).
 - [ ] (después) Laptop (Fases 1-2) y Fase 7 (celular). Confirmar si la PC del tío tiene 16 o 32 GB. Opcional: Social Media Skills en `.claude/skills/`.
