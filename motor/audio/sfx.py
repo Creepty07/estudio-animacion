@@ -286,3 +286,31 @@ def crackle(dur=3.0, seed=0, density=14):
         i = int(r.uniform(0, dur - 0.05) * SR)
         out[i:i + len(c)] += c * r.uniform(0.2, 1.0)
     return norm(out)
+
+
+# ---------- hospital ----------
+def monitor_pitido(freq=1040.0, dur=0.11):
+    """Pitido suave de monitor cardiaco: tono casi puro, ataque rápido y caída corta."""
+    t = tt(dur)
+    s = np.sin(2 * np.pi * freq * t) + 0.18 * np.sin(2 * np.pi * freq * 2 * t)
+    return norm(s * np.minimum(1, t / 0.004) * np.exp(-t / 0.045))
+
+
+def timbre_buzz(dur=0.5, seed=0):
+    """Zumbador eléctrico de llamado a enfermería: sierra grave dura, con armónicos y un temblor rápido."""
+    t = tt(dur)
+    f = 118.0
+    saw = 2 * ((f * t) % 1.0) - 1
+    s = band(saw + 0.5 * np.sign(np.sin(2 * np.pi * 2 * f * t)), 100, 3200)
+    s *= 0.75 + 0.25 * np.sign(np.sin(2 * np.pi * 31 * t))
+    s += 0.12 * band(noise(dur, 700 + seed), 2000, 7000)
+    return fade(norm(s * np.minimum(1, t / 0.006)), 0.004, 0.05)
+
+
+def tragar(seed=0):
+    """Un trago: golpecito húmedo en la garganta."""
+    d = 0.22
+    t = tt(d)
+    s = np.sin(2 * np.pi * np.cumsum(260 * (1 - 0.5 * t / d)) / SR) * np.exp(-t / 0.05)
+    s += 0.5 * band(noise(d, 880 + seed), 300, 2200) * np.exp(-t / 0.04)
+    return norm(s)

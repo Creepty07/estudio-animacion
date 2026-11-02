@@ -86,3 +86,22 @@ def murmullos(dur, seed=1, voces=3):
         w = band(w, 300, 6500)
         out += w / max(np.abs(w).max(), 1e-6) * r.uniform(0.5, 1.0)
     return fade(norm(out), 0.6, 0.8)
+
+
+def fluorescente(dur, brillo=None, freq=120.0, seed=0):
+    """Zumbido de fluorescente (red de 60 Hz: 120 Hz y armónicos) con un silbido agudo de balastro.
+    brillo: función opcional t -> 0..1 (la misma del dibujo); cuando cae, el zumbido se apaga y cada vuelta suena un clic."""
+    t = tt(dur)
+    sig = np.sin(2 * np.pi * freq * t) + 0.55 * np.sin(2 * np.pi * freq * 2 * t + 0.7) + 0.30 * np.sin(2 * np.pi * freq * 3 * t + 1.9)
+    sig += 0.15 * band(noise(dur, 70 + seed), 1800, 7000) + 0.04 * np.sin(2 * np.pi * 7100 * t)
+    sig = sig * (0.92 + 0.08 * np.sin(2 * np.pi * 0.7 * t))
+    if brillo is not None:
+        ts = np.arange(0, dur, 1 / 60)
+        g = np.array([brillo(x) for x in ts])
+        gate = np.interp(t, ts, g) ** 2.0
+        sig = sig * gate
+        for i in np.where(np.abs(np.diff(g)) > 0.25)[0]:                       # clic del balastro al caer o volver
+            j = int(ts[i + 1] * SR)
+            c = band(noise(0.02, seed * 50 + int(i)), 1200, 8000) * np.exp(-np.arange(int(0.02 * SR)) / SR / 0.004)
+            sig[j:j + len(c)] += 0.9 * c[: max(0, len(sig) - j)]
+    return fade(norm(sig), 0.02, 0.05)
