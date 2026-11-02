@@ -5,10 +5,10 @@ from motor.primitives import seg, smooth, lerp, camera_center, vignette, darken
 from motor.kit import particles
 from historias.tumba_llorona.dibujo import panteon, personas
 
-DURATION = 4.55
+DURATION = 5.4
 SUBS = [
-    (0.2, 2.2, "Esa noche, Tomás veló a su abuelo", None),
-    (2.5, 4.4, "en el panteón, junto al canal.", None),
+    (0.2, 2.8, "Esa noche, Tomás veló a su abuelo", None),
+    (3.0, 5.3, "en el panteón, junto al canal.", None),
 ]
 ZOOM = 1.25
 # la cámara se acerca a la tumba de la familia sin salirse del cuadro (el centro se limita a lo visible)

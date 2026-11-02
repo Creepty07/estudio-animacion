@@ -64,3 +64,25 @@ def lamp_hum(dur, freq=55.0):
     sig = np.sin(2 * np.pi * freq * t) + 0.5 * np.sin(2 * np.pi * freq * 2.01 * t) + 0.2 * np.sin(2 * np.pi * freq * 3 * t)
     sig *= 0.8 + 0.2 * np.sin(2 * np.pi * 0.3 * t)
     return fade(norm(sig), 1.0, 1.0)
+
+
+def murmullos(dur, seed=1, voces=3):
+    """Voces susurradas que no se entienden: aire con formantes de vocal que se enciende y se apaga como sílabas."""
+    from motor.audio.voice import _resonar
+    r = np.random.default_rng(seed)
+    n = int(dur * SR)
+    out = np.zeros(n)
+    for v in range(voces):
+        gate = np.zeros(n)
+        t = r.uniform(0, 0.4)
+        while t < dur:
+            d = r.uniform(0.10, 0.28)
+            i, j = int(t * SR), min(n, int((t + d) * SR))
+            gate[i:j] = np.hanning(max(j - i, 1)) ** 0.7
+            t += d + r.uniform(0.04, 0.3) * (1 + (r.random() < 0.25) * 3)
+        vocal = r.choice(["a", "i", "o", "u"])
+        src = noise(dur, seed * 31 + v)
+        w = _resonar(src, vocal) * gate
+        w = band(w, 300, 6500)
+        out += w / max(np.abs(w).max(), 1e-6) * r.uniform(0.5, 1.0)
+    return fade(norm(out), 0.6, 0.8)

@@ -99,7 +99,9 @@ def fx_susurro_suave(x):
 
 
 _VOCALES = {"a": ((750, 90, 1.0), (1250, 110, 0.5), (2600, 160, 0.25)),
-            "i": ((300, 70, 1.0), (2300, 120, 0.45), (3100, 160, 0.25))}
+            "i": ((300, 70, 1.0), (2300, 120, 0.45), (3100, 160, 0.25)),
+            "o": ((450, 80, 1.0), (800, 90, 0.5), (2830, 150, 0.2)),
+            "u": ((325, 70, 1.0), (700, 90, 0.4), (2530, 150, 0.15))}
 
 
 def _resonar(src, vocal):
@@ -112,7 +114,8 @@ def _resonar(src, vocal):
     return out
 
 
-def grito_sintetico(dur=2.2, seed=1, lejano=False):
+def grito_sintetico(dur=2.2, seed=1, lejano=False, puntos=((0, 330), (0.12, 520), (0.4, 660), (0.7, 560), (1.0, 280)),
+                    vocales=("a", "i")):
     """Lamento de mujer, 'aaaay': voz cantada sintetizada (fuente con vibrato + formantes de /a/ que pasa a /i/).
 
     No es un modelo de voz ni una grabación: se calcula directo, sin tono robótico de TTS.
@@ -121,13 +124,13 @@ def grito_sintetico(dur=2.2, seed=1, lejano=False):
     n = int(dur * SR)
     t = np.arange(n) / SR
     k = t / dur
-    f = np.interp(k, [0, 0.12, 0.4, 0.7, 1.0], [330, 520, 660, 560, 280])
+    f = np.interp(k, [p[0] for p in puntos], [p[1] for p in puntos])
     jit = np.convolve(r.standard_normal(n), np.ones(int(0.06 * SR)) / int(0.06 * SR), mode="same")
     f = f * (1 + (0.006 + 0.025 * k) * np.sin(2 * np.pi * 5.5 * t) + 0.12 * jit / max(np.abs(jit).max(), 1e-6) * 0.15)
     phase = np.cumsum(f) / SR
     src = 2 * (phase % 1.0) - 1.0
     src = src * np.exp(-0.0 * t) + 0.12 * r.standard_normal(n)            # un poco de aire
-    a, i = _resonar(src, "a"), _resonar(src, "i")
+    a, i = _resonar(src, vocales[0]), _resonar(src, vocales[1])
     w = np.clip((k - 0.72) / 0.2, 0, 1)
     y = (1 - w) * a + w * i
     env = np.minimum(1, t / 0.08) * np.where(k < 0.75, 1.0, np.exp(-(k - 0.75) * 7))
@@ -136,6 +139,12 @@ def grito_sintetico(dur=2.2, seed=1, lejano=False):
         y = band(y, 300, 1800)
     return norm(_tail(band(y, 200, 6500), ((0.15, 0.4, 3500), (0.33, 0.3, 2800), (0.55, 0.2, 2200),
                                             (0.85, 0.12, 1800), (1.2, 0.07, 1500))), 0.85)
+
+
+def aullido(dur=3.0, seed=2):
+    """Aullido de perro lejano: tono largo que sube y baja, vocal /o/ que cierra en /u/, con mucha sala."""
+    return grito_sintetico(dur, seed, lejano=True, puntos=((0, 240), (0.2, 420), (0.5, 470), (0.8, 380), (1.0, 230)),
+                           vocales=("o", "u"))
 
 
 def fx_grito(x, seed=1):

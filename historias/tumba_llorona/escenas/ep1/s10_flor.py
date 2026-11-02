@@ -5,10 +5,10 @@ from motor.primitives import seg, smooth, lerp, camera_center, vignette, darken,
 from motor.kit import particles
 from historias.tumba_llorona.dibujo import fondo_tumba, tumbas, personas, flores, primer_plano
 
-DURATION = 5.0
+DURATION = 5.6
 SUBS = [
     (0.2, 2.4, "Tomás no corrió. Le dio lástima,", None),
-    (2.5, 4.9, "y dejó un cempasúchil sobre la piedra.", None),
+    (2.5, 5.4, "y dejó un cempasúchil sobre la piedra.", None),
 ]
 CAMINA_HASTA = 2.15                  # deja de caminar
 CORTE = 2.45                         # corte al primer plano de la piedra

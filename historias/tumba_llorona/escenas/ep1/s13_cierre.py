@@ -2,9 +2,9 @@
 from motor.primitives import seg, smooth, darken
 from historias.tumba_llorona.dibujo import tarjeta
 
-DURATION = 3.7
+DURATION = 4.4
 SUBS = [
-    (0.3, 3.5, "¿Tú le habrías dejado la flor? Comenta sí o no.", None),
+    (0.3, 4.2, "¿Tú le habrías dejado la flor? Comenta sí o no.", None),
 ]
 
 

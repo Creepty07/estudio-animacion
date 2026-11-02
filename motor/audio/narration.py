@@ -40,6 +40,8 @@ def line_audio(text, speaker):
 
 
 def build():
+    if not config.NARRATION:                         # video sin voces: solo subtítulos y sonido
+        return {}
     out_dir = config.AUDIO_DIR / "voces"
     out_dir.mkdir(parents=True, exist_ok=True)
     manifest = {}

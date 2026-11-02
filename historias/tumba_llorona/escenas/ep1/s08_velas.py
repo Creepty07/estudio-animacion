@@ -2,16 +2,17 @@
 from motor.config import W, H
 from motor.primitives import seg, smooth, lerp, camera_center, vignette, darken, tint
 from motor.kit import particles
-from historias.tumba_llorona.dibujo import panteon, velas
+from historias.tumba_llorona.dibujo import panteon, velas, llorona
 
-DURATION = 4.6
+DURATION = 4.9
 SUBS = [
     (0.2, 2.5, "A medianoche, las velas se apagaron,", None),
-    (2.6, 4.5, "una por una, rumbo al canal.", None),
+    (2.6, 4.8, "una por una, rumbo al canal.", None),
 ]
 PRIMERA = 0.7                       # se apaga la primera vela (la más cercana)
 PASO = 0.34                         # tiempo entre una vela y la siguiente
 APAGONES = [PRIMERA + i * PASO for i in range(len(panteon.LINEA))]        # una por cada vela, de cerca a lejos
+FIGURA = 3.95                       # se apaga la última vela y alguien espera al final del pasillo
 TODAS = 3.95                        # al final también se rinden las velas de las tumbas
 
 
@@ -26,6 +27,10 @@ def draw(ctx, t):
     for i, a in enumerate(APAGONES):
         x, y, s = panteon.LINEA[i]
         velas.humo(ctx, x, y - 94 * s, a + 0.1, t, s * 0.9, 1.8)
+    fx, fy, fs = panteon.LINEA[-1]
+    a = smooth(seg(t, FIGURA, FIGURA + 0.5)) * (0.8 + 0.2 * (int(t * 17) % 2))
+    if a > 0:
+        llorona.de_pie(ctx, W / 2, fy + 10, 0.34, t, brazos=0.0, alpha=0.75 * a, aura=0.9)
     ctx.restore()
     tint(ctx, (0.8, 0.9, 1.0), smooth(seg(t, 1.5, 4.4)) * 0.8)
     particles(ctx, t, (0.7, 0.85, 1.0), n=14, seed=61, rise=10, size=(1, 2.2), alpha=0.5)

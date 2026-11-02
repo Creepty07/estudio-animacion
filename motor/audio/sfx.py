@@ -223,3 +223,66 @@ def cold_touch(dur=1.8):
     s = band(noise(dur, 940), 2500, 9000) * np.hanning(n(dur))
     s += 0.4 * np.sin(2 * np.pi * np.cumsum(3800 + 400 * np.sin(2 * np.pi * 7 * t)) / SR) * np.hanning(n(dur))
     return norm(s)
+
+
+def creak(dur=1.3, seed=0):
+    """Crujido de madera o reja: pulsos de fricción de frecuencia irregular, filtrados."""
+    r = np.random.default_rng(seed)
+    t = tt(dur)
+    slow = np.convolve(r.standard_normal(n(dur)), np.ones(int(0.05 * SR)) / int(0.05 * SR), mode="same")
+    f = 28 + 22 * np.abs(slow) / max(np.abs(slow).max(), 1e-6)
+    saw = 2 * ((np.cumsum(f) / SR) % 1.0) - 1
+    stick = saw * (0.5 + 0.5 * np.sin(2 * np.pi * (9 + 4 * np.sin(2 * np.pi * 0.7 * t)) * t))
+    s = band(stick, 350, 1500) + 0.3 * band(noise(dur, seed + 9), 900, 2600) * np.abs(saw)
+    return norm(s * np.hanning(n(dur)) ** 0.6)
+
+
+def owl(seed=0):
+    """Tecolote: 'hu, hu, huuu' grave y hueco (en la tradición mexicana, mal augurio)."""
+    def hoot(d, f0, f1):
+        t = tt(d)
+        ph = 2 * np.pi * np.cumsum(np.linspace(f0, f1, len(t))) / SR
+        return band((np.sin(ph) + 0.3 * np.sin(2 * ph)) * np.hanning(len(t)) ** 0.8, 200, 1500)
+    out = np.zeros(n(1.9))
+    for at, d, f0, f1 in ((0.0, 0.3, 400, 360), (0.45, 0.22, 400, 370), (0.85, 0.75, 390, 300)):
+        h = hoot(d, f0, f1)
+        out[n(at): n(at) + len(h)] += h
+    return norm(out)
+
+
+def susto():
+    """Golpe de susto: racimo disonante de sierras, ráfaga de ruido y golpe grave."""
+    d = 1.4
+    t = tt(d)
+    cluster = sum(2 * ((f * t) % 1.0) - 1 for f in (233.1, 246.9, 311.1, 329.6, 466.2, 493.9))
+    env = np.minimum(1, t / 0.005) * env_exp(n(d), 0.35)
+    s = band(cluster, 200, 5000) * env
+    s += 0.6 * band(noise(d, 77), 2000, 9000) * env_exp(n(d), 0.08)
+    s += 0.9 * thump(38, d, 0.4)
+    return norm(s)
+
+
+def riser(dur=2.0, seed=0):
+    """Subida de tensión: ruido y tono que suben hasta cortarse."""
+    k = np.linspace(0, 1, n(dur)) ** 2.5
+    s = band(noise(dur, 300 + seed), 600, 7000) * k + 0.4 * sweep(150, 1800, dur) * k
+    return norm(fade(s, 0.01, 0.02))
+
+
+def tinnitus(dur=3.0):
+    """Zumbido agudo en el oído después de un golpe."""
+    t = tt(dur)
+    s = 0.6 * np.sin(2 * np.pi * 6200 * t) + 0.4 * np.sin(2 * np.pi * 6230 * t)
+    return norm(s * np.minimum(1, t / 0.4) * np.exp(-np.maximum(t - 1.8, 0) * 1.2))
+
+
+def crackle(dur=3.0, seed=0, density=14):
+    """Crepitar de velas: chasquidos secos muy cortos y espaciados al azar."""
+    r = np.random.default_rng(seed)
+    out = np.zeros(n(dur))
+    for _ in range(int(density * dur)):
+        d = r.uniform(0.004, 0.02)
+        c = band(noise(d, int(r.integers(0, 9999))), 1500, 8000) * env_exp(n(d), d / 3)
+        i = int(r.uniform(0, dur - 0.05) * SR)
+        out[i:i + len(c)] += c * r.uniform(0.2, 1.0)
+    return norm(out)

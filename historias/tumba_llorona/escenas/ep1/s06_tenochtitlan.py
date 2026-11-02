@@ -6,11 +6,11 @@ from motor.primitives import seg, smooth, ease_out, lerp, camera, vignette, dark
 from historias.tumba_llorona.dibujo import tenochtitlan, llorona, paisaje
 from motor import config
 
-DURATION = 7.6
+DURATION = 8.2
 SUBS = [
-    (0.3, 2.6, "Antes de que llegaran los españoles,", None),
-    (2.7, 5.2, "Tenochtitlan ya la oía gritar de noche:", None),
-    (5.3, 7.5, "¡Hijitos míos! ¿A dónde los llevaré?", None),
+    (0.3, 2.7, "Antes de que llegaran los españoles,", None),
+    (2.8, 5.2, "Tenochtitlan ya la oía gritar de noche:", None),
+    (5.4, 8.0, "¡Hijitos míos! ¿A dónde los llevaré?", None),
 ]
 APARECE = 5.0                    # empieza a verse la mujer sobre el agua
 GRITO = 5.4                      # "¡Hijitos míos!"

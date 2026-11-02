@@ -4,10 +4,10 @@ from motor.primitives import seg, smooth, lerp, camera_center, vignette, darken
 from motor.kit import particles
 from historias.tumba_llorona.dibujo import canal_vista, llorona, paisaje
 
-DURATION = 5.15
+DURATION = 5.8
 SUBS = [
-    (0.2, 2.8, "Siglos después, la contaban como una madre", None),
-    (2.9, 5.0, "que perdió a sus hijos en el agua.", None),
+    (0.2, 3.0, "Siglos después, la contaban como una madre", None),
+    (3.1, 5.6, "que perdió a sus hijos en el agua.", None),
 ]
 ENTRA = 0.7                           # la figura se hace visible
 FIGURA = (W * 0.40, H * 0.63, 0.64)

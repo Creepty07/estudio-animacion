@@ -4,9 +4,9 @@ from motor.primitives import seg, smooth, lerp, camera, vignette, darken
 from motor.kit import fog
 from historias.tumba_llorona.dibujo import camino
 
-DURATION = 3.4
+DURATION = 4.2
 SUBS = [
-    (0.25, 3.1, "En Día de Muertos, todos los muertos vuelven a casa.", None),
+    (0.3, 3.9, "Día de Muertos: los muertos vuelven a casa.", None),
 ]
 
 

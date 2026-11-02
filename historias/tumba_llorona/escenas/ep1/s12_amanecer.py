@@ -5,9 +5,9 @@ from motor.primitives import seg, smooth, lerp, camera_center, vignette, darken,
 from motor.kit import particles
 from historias.tumba_llorona.dibujo import fondo_tumba, tumbas, flores
 
-DURATION = 4.6
+DURATION = 5.4
 SUBS = [
-    (0.4, 4.3, "Al amanecer, la tumba seguía vacía... pero ya tenía nombre.", None),
+    (0.4, 4.6, "Al amanecer, la tumba seguía vacía... pero ya tenía nombre.", None),
 ]
 NOMBRE = "TOMÁS"
 GRABA = (2.5, 3.9)                   # el nombre se va grabando de izquierda a derecha
