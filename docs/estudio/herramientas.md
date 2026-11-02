@@ -20,6 +20,8 @@ Investigación hecha el 2026-11-02 (sesión con Opus 5.5). Criterios: que aporte
 
 ## 2. Voz (TTS): el pendiente principal
 
+> **Actualización 2026-11-02:** búsqueda nueva con modelos hasta octubre de 2026 en `docs/estudio/tts_busqueda_2026-11.md`. Recomendación: Chatterbox es-mx-latam con una voz de narrador diseñada en Qwen3-TTS VoiceDesign (sin clonar a nadie); Ming-3.0-tts (MIT, oct 2026) entra como tercera opción.
+
 Lo que pide Alejandro: una voz "natural, humana y tétrica si aplica", gratis y local. Kokoro se descartó: en español suena plana, y los efectos encima la empeoraron (v1 de La Llorona).
 
 ### 2.1 Candidatos

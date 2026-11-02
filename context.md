@@ -1,6 +1,6 @@
 # context.md — Memoria del estudio
 
-Última actualización: 2026-11-02 · sesión Animación: **La Planchada animada (ep1 60.5 s + ep2 90.7 s), verificada, con portada**; filas en §3.1/§3.2, recursos nuevos en §3.3, patrones en §5 y pendientes en §8. Antes, 2026-11-02 · sesión Guion: **guion de La Planchada aprobado** por Alejandro (`docs/estudio/guion_planchada.md`); fila nueva en §3.1 y pendiente para Animación en §8. Antes, 2026-11-02 · sesión Investigación: recordatorios de Villa (19 y 20 nov) creados (§6). Antes, 2026-11-02 · sesión Investigación: Alejandro eligió **La Planchada**; ficha completa en `docs/estudio/investigacion_planchada.md`. Villa reservada para el 20 nov (§6, §8). Antes, 2026-11-02 · sesión Investigación: banco de 5 ideas en `docs/estudio/banco_ideas.md` (§6, §8). Antes, 2026-11-02 14:30 · sesión de organización (nube): prompts iniciales de las 5 sesiones en `docs/estudio/prompts_sesiones.md`. Antes, 2026-11-02 14:20 · sesión de organización (nube): quitados los subagentes `code-reviewer` y `architecture-verifier` (quedan 4). Antes, 14:10 · sesión de organización (PC del tío): **Fase 1-2 de la migración hecha** (setup + render de prueba de El río de los perros: 6 min, -13.6 LUFS; ver §5).
+Última actualización: 2026-11-02 · sesión Investigación: búsqueda de TTS en `docs/estudio/tts_busqueda_2026-11.md` (§0, §8). Antes, 2026-11-02 · sesión Animación: **La Planchada animada (ep1 60.5 s + ep2 90.7 s), verificada, con portada**; filas en §3.1/§3.2, recursos nuevos en §3.3, patrones en §5 y pendientes en §8. Antes, 2026-11-02 · sesión Guion: **guion de La Planchada aprobado** por Alejandro (`docs/estudio/guion_planchada.md`); fila nueva en §3.1 y pendiente para Animación en §8. Antes, 2026-11-02 · sesión Investigación: recordatorios de Villa (19 y 20 nov) creados (§6). Antes, 2026-11-02 · sesión Investigación: Alejandro eligió **La Planchada**; ficha completa en `docs/estudio/investigacion_planchada.md`. Villa reservada para el 20 nov (§6, §8). Antes, 2026-11-02 · sesión Investigación: banco de 5 ideas en `docs/estudio/banco_ideas.md` (§6, §8). Antes, 2026-11-02 14:30 · sesión de organización (nube): prompts iniciales de las 5 sesiones en `docs/estudio/prompts_sesiones.md`. Antes, 2026-11-02 14:20 · sesión de organización (nube): quitados los subagentes `code-reviewer` y `architecture-verifier` (quedan 4). Antes, 14:10 · sesión de organización (PC del tío): **Fase 1-2 de la migración hecha** (setup + render de prueba de El río de los perros: 6 min, -13.6 LUFS; ver §5).
 
 ## 0. Mapa de documentos (empieza aquí)
 
@@ -16,6 +16,7 @@
 | `historias/<h>/GUION.md` | Repo | Guion de cada historia tal como se produjo (el de El río de los perros es el mismo del doc del Proyecto `claude/guion_rio_de_los_perros.md`) |
 | `publicacion/paquete_subida.md` | Repo | Textos de subida de La Llorona y El río de los perros |
 | `docs/estudio/banco_ideas.md` | Repo | Banco de ideas con fichas cortas (Investigación) |
+| `docs/estudio/tts_busqueda_2026-11.md` | Repo | Búsqueda de TTS del 2026-11-02: candidatos, licencias y recomendación (Chatterbox es-mx-latam + voz diseñada con Qwen3-TTS VoiceDesign) |
 
 Las rutas `claude/<x>.md` que aparecen más abajo (escritas antes de la migración) son los docs del Proyecto; su copia está en `docs/estudio/<x>.md`.
 
@@ -211,7 +212,8 @@ Cada pendiente indica quién lo hace: (Alejandro) o (sesión).
 - [x] (organización) Memoria del estudio al repo (CLAUDE.md, context.md, `docs/estudio/`) y `setup.sh` compatible con WSL (2026-11-02).
 - [ ] (Alejandro) **PC del tío:** permiso, WSL2 + Ubuntu, driver de NVIDIA al día (`nvidia-smi` en Ubuntu), app de escritorio de Claude → Code → sesión WSL. Pasos en `docs/estudio/migracion_claude_code.md` §5.
 - [x] (hecho 2026-11-02, ver §5) Fase 1-2 en la PC del tío: `gh auth login`, clonar en `~/estudio-animacion`, `./setup.sh`, render de prueba de El río de los perros midiendo tiempo y LUFS; anotar en §5.
-- [ ] (Laboratorio, PC del tío) Fase 5: piloto de voz Chatterbox en GPU.
+- [ ] (Alejandro) **Escuchar las demos** de Chatterbox es-mx-latam y Qwen3-TTS VoiceDesign con el texto de prueba de `docs/estudio/tts_busqueda_2026-11.md` §4 y decir cuál suena mejor (2026-11-02). Alejandro quiere resolver el TTS antes de Ruta 0.
+- [ ] (Laboratorio, PC del tío) Fase 5: piloto de voz Chatterbox en GPU. Recomendación actualizada (2026-11-02): Chatterbox es-mx-latam con una voz de referencia diseñada en Qwen3-TTS VoiceDesign; Ming-3.0-tts como tercera opción.
 - [x] (organización) Fase 4: 4 subagentes en `.claude/agents/`, permisos y hook de `git pull` en `.claude/settings.json` (2026-11-02). Falta probarlos en la PC del tío (`/agents`, `/status`).
 - [ ] (después) Laptop (Fases 1-2) y Fase 7 (celular). Confirmar si la PC del tío tiene 16 o 32 GB. Opcional: Social Media Skills en `.claude/skills/`.
 - [ ] (Alejandro) Abrir las sesiones conforme se necesiten. Ahora tocan Redes (métricas 4-5 nov), Investigación (siguiente historia) y Laboratorio (voz). Se nombran "Estudio · <Sesión>" y el primer mensaje dice `Sesión: <nombre>`. Prompts iniciales listos en `docs/estudio/prompts_sesiones.md`.
