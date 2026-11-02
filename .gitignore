@@ -4,3 +4,4 @@ __pycache__/
 *.pyc
 *.tmp.mp4
 .venv*/
+.claude/settings.local.json

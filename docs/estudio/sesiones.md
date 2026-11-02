@@ -1,6 +1,6 @@
 # Sesiones del estudio — quién hace qué
 
-> **Nota (2026-11-02):** este doc ahora vive en el repo. Donde dice "doc del Proyecto `claude/<x>.md`", léase `docs/estudio/<x>.md`. La regla de §5 ("leer justo antes porque se reemplaza completo") se cumple con `git pull` antes de editar y commit + push después (ver CLAUDE.md §8).
+> **Nota (2026-11-02):** este doc ahora vive en el repo. Donde dice "doc del Proyecto `claude/<x>.md`", léase `docs/estudio/<x>.md`. La regla de §5 ("leer justo antes porque se reemplaza completo") se cumple con `git pull` antes de editar y commit + push después (ver CLAUDE.md §8). Los subagentes que cada sesión puede usar están en CLAUDE.md §10.1.
 
 Diseño del 2026-11-02, a pedido de Alejandro: el estudio trabaja con varias sesiones (conversaciones) dentro del mismo Proyecto, cada una con una función. Las sesiones no se ven entre sí. **Lo único que comparten son los docs del Proyecto y el repo.** Por eso todo lo que una sesión decide o entrega queda escrito ahí antes de terminar.
 

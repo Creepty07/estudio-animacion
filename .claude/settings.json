@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "permissions": {
+    "allow": [
+      "Bash(.venv/bin/python producir.py *)",
+      "Bash(python producir.py *)",
+      "Bash(python3 producir.py *)",
+      "Bash(.venv/bin/python -m motor.*)",
+      "Bash(python -m motor.*)",
+      "Bash(python3 -m motor.*)",
+      "Bash(ffmpeg *)",
+      "Bash(ffprobe *)",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(git pull *)",
+      "Bash(git fetch *)",
+      "Bash(git push *)",
+      "Bash(git restore *)",
+      "Bash(nvidia-smi *)"
+    ],
+    "ask": [
+      "Bash(git reset *)",
+      "Bash(git clean *)",
+      "Bash(git checkout -- *)",
+      "Bash(git rebase *)",
+      "Bash(sudo *)",
+      "Bash(rm *)"
+    ],
+    "deny": [
+      "Bash(git push --force*)",
+      "Bash(git push -f*)",
+      "Bash(git push * --force*)",
+      "Bash(git push * -f*)",
+      "Bash(git push * +*)",
+      "Bash(git branch -D *)",
+      "Bash(gh repo delete *)",
+      "Bash(rm -rf /*)",
+      "Bash(rm -rf ~*)",
+      "Bash(rm -rf ..*)",
+      "Bash(sudo rm *)"
+    ]
+  },
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "startup",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"${CLAUDE_PROJECT_DIR}\"/.claude/hooks/sincronizar.sh",
+            "timeout": 40
+          }
+        ]
+      }
+    ]
+  }
+}

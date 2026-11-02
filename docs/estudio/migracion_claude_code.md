@@ -67,8 +67,10 @@ Cada paso dice quién lo hace. "Claude" = la primera sesión de Claude Code en l
 3. Commit + push ("Migración: memoria del estudio al repo").
 4. En el Proyecto de claude.ai: reemplazar `context.md` por una nota de 3 líneas: "MIGRADO el <fecha>. La fuente única es el repo `Creepty07/estudio-animacion`. No editar aquí". Los demás docs se dejan como respaldo.
 
-### Fase 4 — Las 5 sesiones en Claude Code (Claude, 30 min)
-1. Crear `.claude/agents/` con un archivo por sesión: `investigacion.md`, `guion.md`, `animacion.md`, `redes.md`, `laboratorio.md`. Cada uno con su función, su modelo (Opus/Sonnet según CLAUDE.md §10), qué puede tocar y qué no. (Se puede generar con la skill `code-architect`.)
+### Fase 4 — Las 5 sesiones en Claude Code (Claude, 30 min) — **HECHA 2026-11-02**
+> Se cambió el punto 1 al diseñarla con la skill `code-architect`: un subagente no puede conversar con Alejandro (solo devuelve un resultado), así que una sesión completa como Guion o Redes no cabe en uno. Las 5 sesiones siguen siendo conversaciones principales (CLAUDE.md §10) y los subagentes son 6 tareas cerradas que esas sesiones delegan (CLAUDE.md §10.1): `verificador-fuentes`, `revisor-guion`, `revisor-cuadros`, `verificador-video`, `code-reviewer` y `architecture-verifier`. Se agregó un hook que hace `git pull` al abrir cada sesión. El punto 4 (Social Media Skills) queda pendiente y opcional.
+
+1. ~~Crear `.claude/agents/` con un archivo por sesión: `investigacion.md`, `guion.md`, `animacion.md`, `redes.md`, `laboratorio.md`.~~ Reemplazado por los 6 subagentes de arriba.
 2. Forma de trabajo: Alejandro abre una sesión con nombre ("Estudio · Guion · La Planchada") y le dice `Sesión: Guion`; esa sesión trabaja con su rol. Para tareas pesadas puede delegar en el subagente del rol.
 3. `.claude/settings.json` con permisos: permitir sin preguntar `python producir.py`, `python -m motor...`, `ffmpeg`, `ffprobe`, `git add/commit/pull/push`; prohibir `git push --force` y borrar fuera del repo.
 4. (Opcional) Las 12 skills de Social Media Skills como carpetas en `.claude/skills/` del repo (son Markdown; las partes de pago se siguen ignorando).

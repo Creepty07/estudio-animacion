@@ -68,10 +68,10 @@ Producir con calidad constante un catálogo de videos animados para la cuenta de
 4. **Dibujo:** reutilizar primero lo que ya existe (`motor/kit.py`, `motor/primitives.py`, personajes y tarjetas de otras historias) y crear solo lo nuevo en `historias/<nombre>/dibujo/`.
 5. **Escenas:** una por archivo en `escenas/epN/`, con su contrato (`DURATION`, `SUBS`, `draw`) y constantes de tiempo en MAYÚSCULAS para sincronizar el sonido.
 6. **Voces (solo si la historia lleva narrador):** correr `--voces` y revisar cuánto se alarga cada escena. Corregir con `SAY` lo que se lea mal. Sin narrador, este paso se salta y los subtítulos se leen a ≤ 2.9 palabras por segundo.
-7. **Cuadros clave:** `--cuadros ep1.<escena> <t> ...` en 2-3 momentos con más elementos en pantalla. Revisar legibilidad, zona segura y subtítulos.
+7. **Cuadros clave:** `--cuadros ep1.<escena> <t> ...` en 2-3 momentos con más elementos en pantalla. Revisar legibilidad, zona segura y subtítulos (subagente `revisor-cuadros`, §10.1).
 8. **Sonido:** `sonido/mix_epN.py` con efectos de `motor/audio/sfx.py` sincronizados a las constantes de las escenas.
 9. **Producir:** `python producir.py <historia> <ep>`.
-10. **Verificar:** duración de video y audio, hoja de contacto de 6-12 cuadros, niveles de voz sobre el fondo.
+10. **Verificar:** duración de video y audio, hoja de contacto de 6-12 cuadros, niveles de voz sobre el fondo (subagente `verificador-video`, §10.1).
 11. **Entregar y registrar:** el MP4 queda en `out/` (en local, Alejandro lo abre directo; en la nube, se envía al chat), commit y push, y actualizar `context.md`.
 12. **Paquete de publicación:** portada (`python -m motor.portada ...`, sale en `portadas/`), descripción, hashtags, comentario fijado y orden de subida (ver `publicacion/` en el repo). El logo del perfil está en `marca/`.
 
@@ -147,6 +147,22 @@ Detalle completo en `docs/estudio/sesiones.md`.
 - **Al terminar una tarea:** deja escrito qué entregaste, dónde quedó y el siguiente paso (con su sesión), y avanza la etapa de la historia en `context.md` §3.1.
 - **El modelo lo cambia Alejandro.** Si la sesión está corriendo con un modelo distinto al de la tabla, avísale en una línea y sigue.
 
+### 10.1 Subagentes (`.claude/agents/`)
+
+La sesión principal conversa con Alejandro y decide; los subagentes hacen tareas cerradas en su propio contexto y solo reportan (no editan el repo). Delega en ellos en estos momentos:
+
+| Sesión | Momento | Subagente |
+|---|---|---|
+| Investigación | Hay datos reales que verificar | `verificador-fuentes` |
+| Guion | Antes de mostrarle el guion a Alejandro | `revisor-guion` |
+| Animación | Paso 7 (cuadros clave) | `revisor-cuadros` |
+| Animación | Paso 10 (verificar el MP4) | `verificador-video` |
+| Animación y Laboratorio | Antes del commit si cambió código | `code-reviewer` |
+| Animación y Laboratorio | Historia nueva o herramienta nueva en `motor/` | `architecture-verifier` |
+
+- Lo que reporta un subagente se revisa antes de aplicarlo; si contradice a Alejandro o a `context.md`, manda lo segundo.
+- Permisos y el hook de inicio (`git pull` automático) viven en `.claude/settings.json`. Usa `.venv/bin/python producir.py ...` directo (no `source ... &&`), así no pide permiso en cada comando.
+
 ## Glosario
 
 - **Motor:** el código reutilizable (`motor/`) que dibuja, genera voces, mezcla y renderiza.
@@ -167,3 +183,8 @@ Detalle completo en `docs/estudio/sesiones.md`.
 - **Etapa:** dónde va cada historia (idea → investigada → guion aprobado → en animación → entregada → publicada → con métricas).
 - **WSL:** Windows Subsystem for Linux; corre Ubuntu dentro de Windows. El estudio trabaja ahí.
 - **`.venv`:** entorno virtual de Python: una carpeta con su propio Python y librerías, para no tocar el del sistema.
+- **Subagente:** asistente especializado que la sesión principal llama para una tarea concreta; trabaja en su propio contexto y con menos herramientas, y devuelve solo el resultado.
+- **Frontmatter:** el bloque entre `---` al inicio de un archivo con sus datos (`name`, `description`, `tools`, `model`).
+- **Mínimo privilegio:** darle a cada subagente solo las herramientas que necesita (por ejemplo, el revisor de código solo lee).
+- **Permisos (`settings.json`):** reglas `allow` (sin preguntar), `ask` (siempre pregunta) y `deny` (prohibido) para los comandos que corre Claude.
+- **Hook:** comando que Claude Code corre solo en un momento fijo; aquí, `git pull` al abrir una sesión.
