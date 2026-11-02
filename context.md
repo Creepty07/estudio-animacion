@@ -1,6 +1,6 @@
 # context.md — Memoria del estudio
 
-Última actualización: 2026-11-02 · sesión Investigación: banco de 5 ideas en `docs/estudio/banco_ideas.md` (§6, §8). Antes, 2026-11-02 14:30 · sesión de organización (nube): prompts iniciales de las 5 sesiones en `docs/estudio/prompts_sesiones.md`. Antes, 2026-11-02 14:20 · sesión de organización (nube): quitados los subagentes `code-reviewer` y `architecture-verifier` (quedan 4). Antes, 14:10 · sesión de organización (PC del tío): **Fase 1-2 de la migración hecha** (setup + render de prueba de El río de los perros: 6 min, -13.6 LUFS; ver §5).
+Última actualización: 2026-11-02 · sesión Investigación: Alejandro eligió **La Planchada**; ficha completa en `docs/estudio/investigacion_planchada.md`. Villa reservada para el 20 nov (§6, §8). Antes, 2026-11-02 · sesión Investigación: banco de 5 ideas en `docs/estudio/banco_ideas.md` (§6, §8). Antes, 2026-11-02 14:30 · sesión de organización (nube): prompts iniciales de las 5 sesiones en `docs/estudio/prompts_sesiones.md`. Antes, 2026-11-02 14:20 · sesión de organización (nube): quitados los subagentes `code-reviewer` y `architecture-verifier` (quedan 4). Antes, 14:10 · sesión de organización (PC del tío): **Fase 1-2 de la migración hecha** (setup + render de prueba de El río de los perros: 6 min, -13.6 LUFS; ver §5).
 
 ## 0. Mapa de documentos (empieza aquí)
 
@@ -157,10 +157,10 @@ Se actualizan cuando Alejandro comparta capturas de TikTok Studio (vistas, reten
 | 2 nov 2026 | Día de Muertos (fieles difuntos) | El río de los perros: **publicada** (antes de las 10:31) |
 | 4-5 nov 2026 | Primera lectura de métricas | Redes: capturas de TikTok Studio de los 2 videos a las 48-72 h |
 | ~29 nov 2026 | Fin de las primeras 4 semanas | Redes (con Opus): revisar la meta de 12 videos y decidir qué formato repetir. Van 2 videos verticales listos; faltan ~10 a ritmo de 2-3 por semana |
-| 20 nov 2026 | Revolución Mexicana | Propuesta (Investigación, 2026-11-02): **¿Dónde está la cabeza de Villa?**, interactiva con las 3 teorías del robo de 1926 (siglo del robo). Publicar 18-20 nov. Esperando que Alejandro elija (`docs/estudio/banco_ideas.md`) |
+| 20 nov 2026 | Revolución Mexicana | **Reservado (Alejandro, 2026-11-02): "¿Dónde está la cabeza de Villa?"**, interactiva con las 3 teorías del robo de 1926 (siglo del robo). Se publica el mero 20. Ficha corta en `docs/estudio/banco_ideas.md` (idea 1). Para llegar: ficha completa a más tardar ~6 nov, guion aprobado ~10 nov, animación 11-18 nov. Recordatorios a Alejandro el 19 y el 20 nov, 9:00 |
 | 12 dic 2026 | Día de la Virgen de Guadalupe | PENDIENTE (tema sensible: tratar con respeto) |
 | 24-25 dic 2026 | Navidad | PENDIENTE |
-| Por definir | Banco de ideas (2026-11-02) | 5 fichas en `docs/estudio/banco_ideas.md`: 1 Cabeza de Villa (interactiva, 20 nov, **recomendada**), 2 La Planchada (interactiva), 3 Hay alguien más (ficción, interactiva), 4 Los arcos de Querétaro (único, 300 años), 5 Ruta 0 (lineal, 3 ep.). Guardadas: cempasúchil → oct. 2027; Catrina → descartada como relato; Isla de las Muñecas → reserva |
+| Por definir | Banco de ideas (2026-11-02) | 5 fichas en `docs/estudio/banco_ideas.md`. **Elegida: 2 La Planchada** (interactiva, siguiente pieza). **Reservada: 1 Cabeza de Villa** (20 nov). En banco: 3 Hay alguien más (ficción, interactiva), 4 Los arcos de Querétaro (único, 300 años), 5 Ruta 0 (lineal, 3 ep.). Guardadas: cempasúchil → oct. 2027; Catrina → descartada como relato; Isla de las Muñecas → reserva |
 
 ## 7. Decisiones y ajustes del método
 
@@ -206,7 +206,9 @@ Cada pendiente indica quién lo hace: (Alejandro) o (sesión).
 - [ ] (Alejandro, opcional) En las instrucciones del Proyecto, cambiar "un narrador fijo por historia" por "sin narrador por defecto (si hay narrador, uno fijo por historia)". Claude no puede editarlas; CLAUDE.md y este archivo ya tienen la regla nueva.
 - [ ] (Laboratorio + Alejandro) **Piloto de voz** con Chatterbox es-mx-latam (`claude/herramientas.md` §2.3): Alejandro baja los pesos de Hugging Face (o vincula su computadora) → se suben como release `modelos-tts-v1` → `.venv-tts` + `motor/audio/tts_chatterbox.py` → medir la velocidad en CPU → 3 muestras → decide Alejandro. (Si se aprueba la migración a Claude Code, este piloto se hace en la laptop y ya no hace falta el release: ver `claude/migracion_claude_code.md` Fase 5.)
 - [x] (Investigación) Banco de 5 ideas con fichas cortas: `docs/estudio/banco_ideas.md` (2026-11-02).
-- [ ] (Alejandro) Elegir la siguiente pieza del banco; luego (Investigación) ficha completa con fuentes.
+- [x] (Alejandro) Elegir la siguiente pieza: **La Planchada** (2026-11-02). Ficha completa: `docs/estudio/investigacion_planchada.md` (etapa: investigada).
+- [ ] (Guion) Guion de **La Planchada** (interactiva: episodio + 3 finales) desde `docs/estudio/investigacion_planchada.md`; crear su fila en §3.1.
+- [ ] (Investigación) Ficha completa de **¿Dónde está la cabeza de Villa?** a más tardar ~6 nov, para que Guion la tenga aprobada ~10 nov y se publique el 20 nov (reservada por Alejandro).
 - [ ] (Laboratorio o Animación) Pantalla de elección en **vertical** para las interactivas (la de La rebelión es 16:9).
 - [ ] (Alejandro → Guion/Animación) Decidir si La rebelión (interactiva, cap. 1 ya hecho en 16:9) se rehace en vertical para publicarla: encaja con la bio.
 - [ ] (Redes) Leer las métricas de los 2 primeros videos a las 48-72 h y escribir los primeros post-mortems.
