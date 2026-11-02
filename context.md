@@ -1,6 +1,6 @@
 # context.md — Memoria del estudio
 
-Última actualización: 2026-11-02 14:20 · sesión de organización (nube): quitados los subagentes `code-reviewer` y `architecture-verifier` (quedan 4). Antes, 14:10 · sesión de organización (PC del tío): **Fase 1-2 de la migración hecha** (setup + render de prueba de El río de los perros: 6 min, -13.6 LUFS; ver §5).
+Última actualización: 2026-11-02 14:30 · sesión de organización (nube): prompts iniciales de las 5 sesiones en `docs/estudio/prompts_sesiones.md`. Antes, 2026-11-02 14:20 · sesión de organización (nube): quitados los subagentes `code-reviewer` y `architecture-verifier` (quedan 4). Antes, 14:10 · sesión de organización (PC del tío): **Fase 1-2 de la migración hecha** (setup + render de prueba de El río de los perros: 6 min, -13.6 LUFS; ver §5).
 
 ## 0. Mapa de documentos (empieza aquí)
 
@@ -200,7 +200,7 @@ Cada pendiente indica quién lo hace: (Alejandro) o (sesión).
 - [ ] (Laboratorio, PC del tío) Fase 5: piloto de voz Chatterbox en GPU.
 - [x] (organización) Fase 4: 4 subagentes en `.claude/agents/`, permisos y hook de `git pull` en `.claude/settings.json` (2026-11-02). Falta probarlos en la PC del tío (`/agents`, `/status`).
 - [ ] (después) Laptop (Fases 1-2) y Fase 7 (celular). Confirmar si la PC del tío tiene 16 o 32 GB. Opcional: Social Media Skills en `.claude/skills/`.
-- [ ] (Alejandro) Abrir las sesiones conforme se necesiten. Ahora tocan Redes (métricas 4-5 nov), Investigación (siguiente historia) y Laboratorio (voz). Se nombran "Estudio · <Sesión>" y el primer mensaje dice `Sesión: <nombre>`.
+- [ ] (Alejandro) Abrir las sesiones conforme se necesiten. Ahora tocan Redes (métricas 4-5 nov), Investigación (siguiente historia) y Laboratorio (voz). Se nombran "Estudio · <Sesión>" y el primer mensaje dice `Sesión: <nombre>`. Prompts iniciales listos en `docs/estudio/prompts_sesiones.md`.
 - [ ] (Alejandro, opcional) Instalar las 12 skills de Social Media Skills: ZIP sueltos del release v1.0.1, en Customize → Skills. Lista en `claude/herramientas.md` §3.
 - [ ] (Alejandro, opcional) En las instrucciones del Proyecto, cambiar "un narrador fijo por historia" por "sin narrador por defecto (si hay narrador, uno fijo por historia)". Claude no puede editarlas; CLAUDE.md y este archivo ya tienen la regla nueva.
 - [ ] (Laboratorio + Alejandro) **Piloto de voz** con Chatterbox es-mx-latam (`claude/herramientas.md` §2.3): Alejandro baja los pesos de Hugging Face (o vincula su computadora) → se suben como release `modelos-tts-v1` → `.venv-tts` + `motor/audio/tts_chatterbox.py` → medir la velocidad en CPU → 3 muestras → decide Alejandro. (Si se aprueba la migración a Claude Code, este piloto se hace en la laptop y ya no hace falta el release: ver `claude/migracion_claude_code.md` Fase 5.)
