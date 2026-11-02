@@ -101,6 +101,21 @@ def pad(freqs, dur, attack=1.5, release=1.5, bright=900, seed=1):
     return fade(norm(out), attack, release)
 
 
+def reverb(sig, t60=1.6, wet=0.3, seed=0, brillo=4500):
+    """Reverberación por convolución con una cola de ruido que decae (da espacio: cueva, río, noche abierta).
+    t60 = segundos hasta que la cola baja 60 dB; wet = cuánto suena la cola respecto a la señal seca."""
+    from scipy.signal import fftconvolve
+    n = int(t60 * SR)
+    ir = band(noise(t60, 500 + seed), 120, brillo) * np.exp(-np.arange(n) / SR * 6.9 / t60)
+    ir[: int(0.012 * SR)] *= np.linspace(0, 1, int(0.012 * SR))
+    ir /= max(np.abs(ir).max(), 1e-9)
+    tail = fftconvolve(sig, ir)[: len(sig) + n]
+    tail *= (np.abs(sig).max() / max(np.abs(tail).max(), 1e-9)) * wet
+    out = np.concatenate([sig, np.zeros(n)])
+    out[: len(tail)] += tail
+    return out
+
+
 class Track:
     """Pista estéreo donde se colocan sonidos en el tiempo.
 

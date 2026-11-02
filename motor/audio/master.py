@@ -9,9 +9,10 @@ DUCK = 0.5           # cuánto se baja el fondo mientras hay voz
 VOICE_PEAK = 0.9
 
 
-def master(bed, total, voices, fade_out=0.45):
+def master(bed, total, voices, fade_out=0.45, bed_peak=BED_PEAK):
+    """bed_peak: pico del fondo. Con voz queda en 0.65 (debajo de la voz); sin narrador se sube (p. ej. 0.9)."""
     n = int(total * SR)
-    bed = norm(bed[:n], BED_PEAK)
+    bed = norm(bed[:n], bed_peak)
     vox = np.zeros(n)
     for at, wav, _speaker in voices:
         data, _ = sf.read(wav)

@@ -40,6 +40,8 @@ def line_audio(text, speaker):
 
 
 def build():
+    """Genera las voces. Con NARRATION = False (historias sin narrador) no hace nada: los SUBS salen como texto
+    en pantalla con sus tiempos locales y la banda sonora lleva todo el peso."""
     if not config.NARRATION:                         # video sin voces: solo subtítulos y sonido
         return {}
     out_dir = config.AUDIO_DIR / "voces"
