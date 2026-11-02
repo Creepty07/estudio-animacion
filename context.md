@@ -1,6 +1,6 @@
 # context.md — Memoria del estudio
 
-Última actualización: 2026-11-02 14:30 · sesión de organización (nube): prompts iniciales de las 5 sesiones en `docs/estudio/prompts_sesiones.md`. Antes, 2026-11-02 14:20 · sesión de organización (nube): quitados los subagentes `code-reviewer` y `architecture-verifier` (quedan 4). Antes, 14:10 · sesión de organización (PC del tío): **Fase 1-2 de la migración hecha** (setup + render de prueba de El río de los perros: 6 min, -13.6 LUFS; ver §5).
+Última actualización: 2026-11-02 · sesión Investigación: banco de 5 ideas en `docs/estudio/banco_ideas.md` (§6, §8). Antes, 2026-11-02 14:30 · sesión de organización (nube): prompts iniciales de las 5 sesiones en `docs/estudio/prompts_sesiones.md`. Antes, 2026-11-02 14:20 · sesión de organización (nube): quitados los subagentes `code-reviewer` y `architecture-verifier` (quedan 4). Antes, 14:10 · sesión de organización (PC del tío): **Fase 1-2 de la migración hecha** (setup + render de prueba de El río de los perros: 6 min, -13.6 LUFS; ver §5).
 
 ## 0. Mapa de documentos (empieza aquí)
 
@@ -15,6 +15,7 @@
 | `README.md`, `docs/GUIA_MOTOR.md` | Repo | Cómo usar el motor, cómo escribir escenas, sin narrador, gradación, portadas y límites del entorno |
 | `historias/<h>/GUION.md` | Repo | Guion de cada historia tal como se produjo (el de El río de los perros es el mismo del doc del Proyecto `claude/guion_rio_de_los_perros.md`) |
 | `publicacion/paquete_subida.md` | Repo | Textos de subida de La Llorona y El río de los perros |
+| `docs/estudio/banco_ideas.md` | Repo | Banco de ideas con fichas cortas (Investigación) |
 
 Las rutas `claude/<x>.md` que aparecen más abajo (escritas antes de la migración) son los docs del Proyecto; su copia está en `docs/estudio/<x>.md`.
 
@@ -156,10 +157,10 @@ Se actualizan cuando Alejandro comparta capturas de TikTok Studio (vistas, reten
 | 2 nov 2026 | Día de Muertos (fieles difuntos) | El río de los perros: **publicada** (antes de las 10:31) |
 | 4-5 nov 2026 | Primera lectura de métricas | Redes: capturas de TikTok Studio de los 2 videos a las 48-72 h |
 | ~29 nov 2026 | Fin de las primeras 4 semanas | Redes (con Opus): revisar la meta de 12 videos y decidir qué formato repetir. Van 2 videos verticales listos; faltan ~10 a ritmo de 2-3 por semana |
-| 20 nov 2026 | Revolución Mexicana | PENDIENTE: Investigación propone ideas (no tienen que ser leyendas: puede ser ficción original ambientada en la época, idealmente interactiva) |
+| 20 nov 2026 | Revolución Mexicana | Propuesta (Investigación, 2026-11-02): **¿Dónde está la cabeza de Villa?**, interactiva con las 3 teorías del robo de 1926 (siglo del robo). Publicar 18-20 nov. Esperando que Alejandro elija (`docs/estudio/banco_ideas.md`) |
 | 12 dic 2026 | Día de la Virgen de Guadalupe | PENDIENTE (tema sensible: tratar con respeto) |
 | 24-25 dic 2026 | Navidad | PENDIENTE |
-| Por definir | Ideas guardadas | Candidatas descartadas por ahora el 2026-11-01: leyenda del cempasúchil (Xóchitl y Huitzilin), La Planchada (buena para una interactiva de 3 finales), el Acueducto de Querétaro y Sor Marcela (300 años del inicio de la obra; no hay prueba del amorío), origen de la Catrina (dato curioso, no relato) |
+| Por definir | Banco de ideas (2026-11-02) | 5 fichas en `docs/estudio/banco_ideas.md`: 1 Cabeza de Villa (interactiva, 20 nov, **recomendada**), 2 La Planchada (interactiva), 3 Hay alguien más (ficción, interactiva), 4 Los arcos de Querétaro (único, 300 años), 5 Ruta 0 (lineal, 3 ep.). Guardadas: cempasúchil → oct. 2027; Catrina → descartada como relato; Isla de las Muñecas → reserva |
 
 ## 7. Decisiones y ajustes del método
 
@@ -204,7 +205,9 @@ Cada pendiente indica quién lo hace: (Alejandro) o (sesión).
 - [ ] (Alejandro, opcional) Instalar las 12 skills de Social Media Skills: ZIP sueltos del release v1.0.1, en Customize → Skills. Lista en `claude/herramientas.md` §3.
 - [ ] (Alejandro, opcional) En las instrucciones del Proyecto, cambiar "un narrador fijo por historia" por "sin narrador por defecto (si hay narrador, uno fijo por historia)". Claude no puede editarlas; CLAUDE.md y este archivo ya tienen la regla nueva.
 - [ ] (Laboratorio + Alejandro) **Piloto de voz** con Chatterbox es-mx-latam (`claude/herramientas.md` §2.3): Alejandro baja los pesos de Hugging Face (o vincula su computadora) → se suben como release `modelos-tts-v1` → `.venv-tts` + `motor/audio/tts_chatterbox.py` → medir la velocidad en CPU → 3 muestras → decide Alejandro. (Si se aprueba la migración a Claude Code, este piloto se hace en la laptop y ya no hace falta el release: ver `claude/migracion_claude_code.md` Fase 5.)
-- [ ] (Investigación) Siguientes piezas: 3-5 ideas variadas (no solo leyendas), con al menos 1-2 en formato **interactiva (elige 1, 2 o 3)**, como pide la bio. Ficha corta de cada una para que Alejandro elija (calendario: 20 nov; ideas guardadas en §6; La Planchada ya se marcó como buena para interactiva).
+- [x] (Investigación) Banco de 5 ideas con fichas cortas: `docs/estudio/banco_ideas.md` (2026-11-02).
+- [ ] (Alejandro) Elegir la siguiente pieza del banco; luego (Investigación) ficha completa con fuentes.
+- [ ] (Laboratorio o Animación) Pantalla de elección en **vertical** para las interactivas (la de La rebelión es 16:9).
 - [ ] (Alejandro → Guion/Animación) Decidir si La rebelión (interactiva, cap. 1 ya hecho en 16:9) se rehace en vertical para publicarla: encaja con la bio.
 - [ ] (Redes) Leer las métricas de los 2 primeros videos a las 48-72 h y escribir los primeros post-mortems.
 - [x] (Alejandro) Crear la cuenta de TikTok @relatos.en.penumbra (hecho).
