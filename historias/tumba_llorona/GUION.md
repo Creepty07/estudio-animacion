@@ -1,6 +1,6 @@
 # La Tumba de la Llorona: guion
 
-**Estado:** v1 aprobada por Alejandro (2026-11-01) y producida. Video final de 60.5 s. Abajo, los subtítulos como quedaron en pantalla.
+**Estado:** versión vigente = **v3, sin narrador** (2026-11-01), 67.35 s. Ver la sección "Versión 3" al final. La v1 (con narrador, 60.5 s) y la v2 quedan abajo como historial.
 
 ## Brief
 
@@ -88,3 +88,35 @@ Notas de producción: el lamento de fondo es sintético (no se pudo descargar un
 - Susurro con `susurro_suave` (se entiende; antes el efecto con fase al azar lo volvía ruido).
 - Color: gradación global `GRADE` (desaturar, frío, viñeta, grano). Sonido: drones graves disonantes, campana más grave, grillos solo en el panteón.
 - Duración: ~68 s (la narración más lenta alarga las escenas).
+
+
+## Versión 3 (2026-11-01): sin narrador — VIGENTE
+
+Alejandro pidió quitar al narrador y apoyarse en sonido, color y texto. Desde entonces, **sin narrador es la regla por defecto del estudio**.
+
+- `NARRATION = False` en `historia.py`: el texto en pantalla cuenta la historia y nada se estira.
+- Subtítulos a ≤ 2.9 palabras por segundo; por eso varias escenas se alargaron (60 s → 67.35 s).
+- La Llorona no habla con TTS: el grito es un efecto (lamento sintetizado o `audio/grito_llorona.wav` si Alejandro adjunta uno con licencia) y el susurro es solo texto + murmullos.
+- Look: `GRADE` (tinte frío desaturado, viñeta, grano, parpadeo) y `SUSTOS` (glitch + destello rojo) sincronizados con los golpes de la mezcla (`sonido/mix_ep1.py`).
+- Verificación: 1080×1920, 30 fps, -13.3 LUFS, pico -0.6 dBFS.
+- Portada: escena `s09_grito`, t = 1.1 → `portadas/portada_la_tumba_de_la_llorona.png`.
+
+### Texto en pantalla de la v3 (generado de las escenas)
+
+| Escena | Inicio | Duración | Texto en pantalla (segundos del video) |
+|---|---|---|---|
+| s01_camino | 0.0 | 4.2 s | 0.3-3.9: Día de Muertos: los muertos vuelven a casa. |
+| s02_titulo | 4.2 | 4.3 s | 4.2-5.7: Todos... menos una.<br>5.8-8.3: ¡Aaay, mis hijos! (LLORONA) |
+| s03_panteon | 8.5 | 5.4 s | 8.7-11.3: Esa noche, Tomás veló a su abuelo<br>11.5-13.8: en el panteón, junto al canal. |
+| s04_tumba | 13.9 | 4.2 s | 14.1-17.9: Al fondo, una tumba sin nombre. Sin velas. Sin flores. |
+| s05_abuela | 18.1 | 6.8 s | 18.3-21.1: Su abuela le advirtió: esa no se toca.<br>21.3-24.8: Es de la Llorona. Está vacía... porque ella sigue buscando. |
+| s06_tenochtitlan | 24.9 | 8.2 s | 25.2-27.6: Antes de que llegaran los españoles,<br>27.7-30.1: Tenochtitlan ya la oía gritar de noche:<br>30.3-32.9: ¡Hijitos míos! ¿A dónde los llevaré? |
+| s07_canal | 33.1 | 5.8 s | 33.3-36.1: Siglos después, la contaban como una madre<br>36.2-38.7: que perdió a sus hijos en el agua. |
+| s08_velas | 38.9 | 4.9 s | 39.1-41.4: A medianoche, las velas se apagaron,<br>41.5-43.7: una por una, rumbo al canal. |
+| s09_grito | 43.8 | 2.7 s | 44.1-46.4: ¡Ay, mis hijos! (LLORONA) |
+| s10_flor | 46.5 | 5.6 s | 46.7-48.9: Tomás no corrió. Le dio lástima,<br>49.0-51.9: y dejó un cempasúchil sobre la piedra. |
+| s11_mano | 52.1 | 5.5 s | 52.3-53.8: El llanto se detuvo.<br>54.5-56.9: ¿Eres tú... mi niño? (LLORONA (SUSURRO)) |
+| s12_amanecer | 57.6 | 5.4 s | 58.0-62.2: Al amanecer, la tumba seguía vacía... pero ya tenía nombre. |
+| s13_cierre | 63.0 | 4.4 s | 63.2-67.2: ¿Tú le habrías dejado la flor? Comenta sí o no. |
+
+Total: 67.35 s

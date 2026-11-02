@@ -10,6 +10,7 @@ historia.py ──► escenas (SUBS + draw) ──► voces (Kokoro) ──► l
                                                                                                          └──► build: une todo en el MP4 final
 ```
 
+0. **Sin narrador** (lo normal desde nov 2026): los pasos 1, 2 y el ducking del 5 no hacen nada; ver §9.
 1. **Voces** (`motor/audio/narration.py`): cada línea de `SUBS` de cada escena se convierte en audio con la voz de su hablante (`VOICES` de la historia) y el efecto de ese personaje. Se guarda `out/<historia>/audio/voces.json` con la duración real de cada línea.
 2. **Línea de tiempo** (`motor/timeline.py`): si una línea dura más que el hueco que tenía su subtítulo, ese tramo de la escena se alarga (hasta `MAX_STRETCH`). Así la animación se adapta a la voz y no al revés.
 3. **Render** (`motor/render.py`): cada cuadro se dibuja con Cairo en memoria y se manda directo a ffmpeg (sin PNG intermedios). Se escribe a un `.tmp.mp4` y solo se renombra si ffmpeg terminó bien.
@@ -54,7 +55,7 @@ En vertical, TikTok tapa la parte baja (descripción) y la columna derecha (boto
 
 Efectos (`motor/audio/voice.py`): `none`, `robot` (anillo + eco metálico), `agora` (coro + eco de sala), `radio` (banda estrecha + estática). Para un efecto nuevo, agrega una función `fx_*` y regístrala en `FX`.
 
-Regla de la casa: **el narrador se fija una vez por historia** y no cambia entre capítulos. Velocidad recomendada 1.0–1.1.
+Regla de la casa (desde el 2026-11-01): **sin narrador por defecto** (`NARRATION = False`), hasta que Alejandro diga lo contrario o se encuentre una voz natural, humana y tétrica. Si una historia lleva narrador, se fija una vez por historia y no cambia entre capítulos; velocidad 1.0–1.1. Efectos que sí funcionan: `tetrico`, `susurro_suave`. Los gritos y lamentos no se hacen con TTS (`grito_sintetico` o un archivo con `"file"`). El piloto de una voz nueva (Chatterbox latino) está descrito en el doc del Proyecto `claude/herramientas.md`.
 
 ## 5. Piezas reutilizables
 
@@ -81,4 +82,25 @@ Regla de la casa: **el narrador se fija una vez por historia** y no cambia entre
 
 ## 8. Rendimiento
 
-~6-10 cuadros por segundo por proceso en 1080p. Un video de 60 s (1800 cuadros) tarda unos 4-5 min con 2 procesos (`WORKERS`). Las voces se guardan en `out/_tts_cache/` y no se regeneran si el texto no cambia.
+~6-10 cuadros por segundo por proceso en 1080p. Un video de 60 s (1800 cuadros) tarda unos 4-5 min con 2 procesos (`WORKERS`); con gradación y grano, 7-8 min (córrelo en segundo plano). Las voces se guardan en `out/_tts_cache/` y no se regeneran si el texto no cambia. Fondos pesados: `motor/layers.py` (`paint_layer`) los dibuja una sola vez.
+
+## 9. Videos sin narrador (el formato por defecto)
+
+- `NARRATION = False` en `historia.py`: `narration.build()` no genera voces, los subtítulos usan sus tiempos tal cual y la línea de tiempo no se estira.
+- Texto en pantalla a ≤ 2.9 palabras por segundo. Diálogos de personajes como subtítulo con etiqueta (hablante en `SUBS`).
+- El sonido cubre cada segundo: cama continua (`ambient.py`, drones) + acción sincronizada con constantes en MAYÚSCULAS + golpes con silencio previo. Master sin voces con `tanh` y meta de -13/-14 LUFS, pico < -0.5 dBFS.
+- Módulos de audio: `sfx.py` (golpes, crujidos, tecolote, `susto`, `riser`, `tinnitus`…), `ambient.py` (`murmullos`, viento, grillos, agua), `instrumentos.py` (huehuetl, caracol, ocarina, sonaja), `animales.py` (perros), `agua.py`, `synth.py` (`reverb`), `master.py` (`bed_peak`).
+
+## 10. Gradación, sustos y portadas
+
+- **Gradación:** `motor/grade.py` + `GRADE(ctx, t_local, nombre)` en `historia.py`; `render.frame` la llama después de `draw` y antes de los subtítulos. `final()` desatura, enfría, pone viñeta, grano y parpadeo.
+- **Sustos:** `grade.glitch(surface, k, seed)` (separa rojo/azul y desplaza franjas) y `grade.rojo(ctx, k)`; los tiempos van en `SUSTOS` de `historia.py` y coinciden con los golpes de la mezcla.
+- **Portadas:** `python -m motor.portada <historia> <escena> <t> "LÍNEA 1|LÍNEA 2" salida.png ["KICKER"]`. Usa un cuadro del video sin subtítulos, con título con falla en y ≈ 1180-1500 para que el recorte 3:4 del perfil de TikTok no lo corte.
+- **Entrega:** el grano infla el MP4; se recomprime con `ffmpeg -c:v libx264 -crf 26 -preset veryfast -pix_fmt yuv420p -c:a copy -movflags +faststart`.
+- **Marca:** `marca/logo.py` genera el logo del perfil (1080×1080).
+
+## 11. Entorno de trabajo en la nube de Claude
+
+- Llega a PyPI, npm y GitHub (clonar y descargar releases). **No llega** a Hugging Face, ModelScope ni a otros hosts de modelos. Un modelo nuevo se sube como release de este repo y `setup.sh` lo baja (así se baja Kokoro).
+- 2 núcleos, 7 GB de RAM y sin GPU: los modelos grandes de voz van en su propio entorno (`.venv-tts`) y se miden antes de adoptarlos.
+- No se puede descargar audio de YouTube ni de bancos de sonido: Alejandro adjunta el archivo y se revisa la licencia.
