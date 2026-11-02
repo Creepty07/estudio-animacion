@@ -157,8 +157,6 @@ La sesión principal conversa con Alejandro y decide; los subagentes hacen tarea
 | Guion | Antes de mostrarle el guion a Alejandro | `revisor-guion` |
 | Animación | Paso 7 (cuadros clave) | `revisor-cuadros` |
 | Animación | Paso 10 (verificar el MP4) | `verificador-video` |
-| Animación y Laboratorio | Antes del commit si cambió código | `code-reviewer` |
-| Animación y Laboratorio | Historia nueva o herramienta nueva en `motor/` | `architecture-verifier` |
 
 - Lo que reporta un subagente se revisa antes de aplicarlo; si contradice a Alejandro o a `context.md`, manda lo segundo.
 - Permisos y el hook de inicio (`git pull` automático) viven en `.claude/settings.json`. Usa `.venv/bin/python producir.py ...` directo (no `source ... &&`), así no pide permiso en cada comando.

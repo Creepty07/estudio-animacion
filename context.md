@@ -1,6 +1,6 @@
 # context.md — Memoria del estudio
 
-Última actualización: 2026-11-02 14:10 · sesión de organización (PC del tío): **Fase 1-2 de la migración hecha** (setup + render de prueba de El río de los perros: 6 min, -13.6 LUFS; ver §5).
+Última actualización: 2026-11-02 14:20 · sesión de organización (nube): quitados los subagentes `code-reviewer` y `architecture-verifier` (quedan 4). Antes, 14:10 · sesión de organización (PC del tío): **Fase 1-2 de la migración hecha** (setup + render de prueba de El río de los perros: 6 min, -13.6 LUFS; ver §5).
 
 ## 0. Mapa de documentos (empieza aquí)
 
@@ -183,7 +183,7 @@ Se actualizan cuando Alejandro comparta capturas de TikTok Studio (vistas, reten
 - 2026-11-02: **Concepto de la cuenta (Alejandro):** contenido variado, no solo leyendas, con el mismo estilo de animación; la bio promete "Tú decides el final: comenta 1, 2 o 3". Los 2 videos publicados son `unico` (piden comentar "sí/no" o un nombre): conviene que las próximas piezas incluyan pronto interactivas de 3 finales para cumplir lo que promete la bio.
 - 2026-11-02: **Herramientas:** se mantiene el motor propio (no se instalan plugins de animación). No se usan skills de TTS de terceros. Se publica a mano (sin programadores de pago). Social Media Skills: solo 12 skills sueltas, opcionales. El TTS pasa a un piloto con Chatterbox Multilingual + paquete es-mx-latam (MIT); la alternativa es grabar una voz humana. Todo en `claude/herramientas.md`.
 - 2026-11-02: **Migración a Claude Code de escritorio aprobada y en curso** (Alejandro: "ahorita usaremos la PC de mi tío", tiene ≥ 25 GB libres). El repo pasa a ser la fuente única de la memoria (CLAUDE.md, context.md, `docs/estudio/`). Plan: `docs/estudio/migracion_claude_code.md`. Primera máquina: PC del tío; luego la laptop.
-- 2026-11-02: **Subagentes y permisos (Fase 4, skill `code-architect`).** Las 5 sesiones siguen siendo conversaciones principales; los subagentes son tareas cerradas que solo reportan (tabla en CLAUDE.md §10.1). Se crearon 4 por necesidad (`verificador-fuentes`, `revisor-guion`, `revisor-cuadros`, `verificador-video`) y 2 **por política** de la skill, aunque el estudio casi no escribe código nuevo (`code-reviewer`, `architecture-verifier`). No se hizo un subagente por sesión porque un subagente no puede conversar con Alejandro. Permisos: render, ffmpeg y git sin preguntar; `rm`, `sudo` y `git reset` preguntan; `git push --force` prohibido.
+- 2026-11-02: **Subagentes y permisos (Fase 4, skill `code-architect`).** Las 5 sesiones siguen siendo conversaciones principales; los subagentes son tareas cerradas que solo reportan (tabla en CLAUDE.md §10.1). Son 4: `verificador-fuentes`, `revisor-guion`, `revisor-cuadros` y `verificador-video`. La skill `code-architect` pide por política `code-reviewer` y `architecture-verifier`; se crearon y **Alejandro los quitó el mismo día** (2026-11-02) porque son para proyectos de código y aquí el producto es el video, no el software. No se hizo un subagente por sesión porque un subagente no puede conversar con Alejandro. Permisos: render, ffmpeg y git sin preguntar; `rm`, `sudo` y `git reset` preguntan; `git push --force` prohibido.
 - 2026-11-01: **El río de los perros va sin narrador**, con mucho efecto de sonido "que no se sienta vacío" y toque de leyenda. Alejandro: "son los únicos cambios, me gusta lo demás". El guion pasó a v2: gancho de texto con golpes de tambor, subtítulos cortos y diálogos de los perros como subtítulos con etiqueta. Se animó con Sonnet y quedó en 13 escenas y 84.7 s (el guion estimaba ~70 s; el cruce a nado se separó en su propia escena para que el clímax respire).
 
 ## 8. Pendientes
@@ -198,7 +198,7 @@ Cada pendiente indica quién lo hace: (Alejandro) o (sesión).
 - [ ] (Alejandro) **PC del tío:** permiso, WSL2 + Ubuntu, driver de NVIDIA al día (`nvidia-smi` en Ubuntu), app de escritorio de Claude → Code → sesión WSL. Pasos en `docs/estudio/migracion_claude_code.md` §5.
 - [x] (hecho 2026-11-02, ver §5) Fase 1-2 en la PC del tío: `gh auth login`, clonar en `~/estudio-animacion`, `./setup.sh`, render de prueba de El río de los perros midiendo tiempo y LUFS; anotar en §5.
 - [ ] (Laboratorio, PC del tío) Fase 5: piloto de voz Chatterbox en GPU.
-- [x] (organización) Fase 4: 6 subagentes en `.claude/agents/`, permisos y hook de `git pull` en `.claude/settings.json` (2026-11-02). Falta probarlos en la PC del tío (`/agents`, `/status`).
+- [x] (organización) Fase 4: 4 subagentes en `.claude/agents/`, permisos y hook de `git pull` en `.claude/settings.json` (2026-11-02). Falta probarlos en la PC del tío (`/agents`, `/status`).
 - [ ] (después) Laptop (Fases 1-2) y Fase 7 (celular). Confirmar si la PC del tío tiene 16 o 32 GB. Opcional: Social Media Skills en `.claude/skills/`.
 - [ ] (Alejandro) Abrir las sesiones conforme se necesiten. Ahora tocan Redes (métricas 4-5 nov), Investigación (siguiente historia) y Laboratorio (voz). Se nombran "Estudio · <Sesión>" y el primer mensaje dice `Sesión: <nombre>`.
 - [ ] (Alejandro, opcional) Instalar las 12 skills de Social Media Skills: ZIP sueltos del release v1.0.1, en Customize → Skills. Lista en `claude/herramientas.md` §3.
