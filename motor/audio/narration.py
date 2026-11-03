@@ -32,7 +32,7 @@ def line_audio(text, speaker):
     if style.get("mapa"):                                       # tomas pregrabadas (p. ej. ElevenLabs): texto del subtítulo -> archivo
         import json
         carpeta = config.ROOT / style["mapa"]
-        toma = json.loads((carpeta / "lineas.json").read_text())[text]
+        toma = json.loads((carpeta / "lineas.json").read_text())[text.replace("*", "")]
         return FX[style["fx"]](_desde_archivo(carpeta / toma["archivo"])) * style["gain"]
     f = style.get("file")
     if f and (config.ROOT / f).exists():

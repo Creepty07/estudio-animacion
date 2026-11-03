@@ -24,6 +24,7 @@ FONT = "Inter"
 FONT_DISPLAY = "Inter Display Black"
 FONT_MONO = "DejaVu Sans Mono"
 SUBTITLES = True
+SUBTITLE_STYLE = "caja"      # "caja" (cursiva sobre caja negra) o "reglas" (negrita con contorno, palabras clave en amarillo)
 
 # ---------- audio y voz ----------
 SR = 48000
