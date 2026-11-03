@@ -35,7 +35,7 @@ def knots(name):
             loc.append(s)
         room = b - s
         need = ln["dur"] + config.VOICE_PAD
-        f = min(config.MAX_STRETCH, max(1.0, need / room)) if room > 0 else 1.0
+        f = min(config.MAX_STRETCH, max(1.0, need / room)) if room > 0 and not ln.get("mudo") else 1.0
         out.append(out[-1] + room * f)
         loc.append(b)
     if loc[-1] < dur:
@@ -69,7 +69,8 @@ def subtitles(name):
     subs = []
     for i, ln in enumerate(lines):
         nxt = starts[i + 1] - 0.05 if i + 1 < len(lines) else total
-        subs.append((starts[i], min(starts[i] + ln["dur"] + 0.4, nxt), ln["text"], ln["speaker"]))
+        extra = 0.0 if ln.get("mudo") else 0.4
+        subs.append((starts[i], min(starts[i] + ln["dur"] + extra, nxt), ln["text"], ln["speaker"]))
     return subs
 
 
@@ -91,5 +92,6 @@ def episode(ep):
     voices = []
     for n, so in zip(names, starts_out):
         for ln in _manifest().get(n, []):
-            voices.append((so + to_out(n, ln["start"]), ln["wav"], ln["speaker"]))
+            if ln.get("wav"):
+                voices.append((so + to_out(n, ln["start"]), ln["wav"], ln["speaker"]))
     return tmap, b, voices

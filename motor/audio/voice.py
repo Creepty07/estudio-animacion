@@ -43,6 +43,35 @@ def fx_radio(x):
     return norm(y + static, 0.85)
 
 
+def fx_radio_tetrico(x, seed=7):
+    """Narrador que llega por una radio vieja en la noche: banda estrecha con el medio resaltado, saturación suave,
+    una señal que sube y baja (como si se fuera la emisora), estática, un chasquido al abrir y cerrar el canal
+    y un eco corto de cuarto vacío. Se entiende bien: el miedo está en el color, no en esconder la voz."""
+    r = np.random.default_rng(seed)
+    n = len(x)
+    y = band(x, 300, 3400)
+    y = y + 0.55 * band(x, 1200, 2600)                                              # medios de bocina
+    y = np.tanh(norm(y) * 2.0)
+    t = np.arange(n) / SR
+    y = y * (0.88 + 0.12 * np.sin(2 * np.pi * 0.31 * t + r.uniform(0, 6)))          # la señal flota
+    y = y * (1 - 0.35 * np.clip(np.sin(2 * np.pi * 7.3 * t) * np.sin(2 * np.pi * 0.9 * t), 0, 1) ** 4)   # leve interferencia
+    est = band(r.standard_normal(n), 900, 7000)
+    est = est * (0.05 + 0.04 * np.abs(np.sin(2 * np.pi * 1.7 * t)))
+    for _ in range(int(2 + n / SR)):                                                # chasquidos sueltos
+        i = int(r.uniform(0, max(n - 400, 1)))
+        est[i:i + 300] += r.uniform(-0.25, 0.25) * np.exp(-np.arange(min(300, n - i)) / 40.0)
+    y = y + est
+    sq = int(0.045 * SR)                                                            # chasquido de apertura y cierre
+    pad = np.zeros(int(0.12 * SR))
+    y = np.concatenate([pad, y, pad])
+    y[:sq] += band(r.standard_normal(sq), 600, 6000) * np.hanning(sq) * 0.35
+    y[-sq:] += band(r.standard_normal(sq), 600, 6000) * np.hanning(sq) * 0.30
+    d = int(0.11 * SR)                                                              # cuarto vacío
+    out = np.concatenate([y, np.zeros(d)])
+    out[d:d + len(y)] += 0.16 * band(y, 250, 2600)
+    return norm(out, 0.85)
+
+
 def _vibrato(x, depth=0.0007, rate=5.2):
     """Oscilación leve de tono (retardo variable): la voz 'tiembla' como si no estuviera del todo ahí."""
     n = len(x)
@@ -152,5 +181,5 @@ def fx_grito(x, seed=1):
     return grito_sintetico(max(len(x) / SR, 0.5), seed)
 
 
-FX = {"none": fx_none, "tetrico": fx_tetrico, "susurro_suave": fx_susurro_suave, "grito": fx_grito, "robot": fx_robot, "agora": fx_agora, "radio": fx_radio,
+FX = {"none": fx_none, "tetrico": fx_tetrico, "susurro_suave": fx_susurro_suave, "grito": fx_grito, "robot": fx_robot, "agora": fx_agora, "radio": fx_radio, "radio_tetrico": fx_radio_tetrico,
       "espectro": fx_espectro, "susurro": fx_susurro}

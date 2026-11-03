@@ -314,3 +314,81 @@ def tragar(seed=0):
     s = np.sin(2 * np.pi * np.cumsum(260 * (1 - 0.5 * t / d)) / SR) * np.exp(-t / 0.05)
     s += 0.5 * band(noise(d, 880 + seed), 300, 2200) * np.exp(-t / 0.04)
     return norm(s)
+
+
+# ---------- camión y ciudad (Ruta 0) ----------
+def frenos_aire(dur=1.4, seed=0):
+    """Frenos de aire de un camión: golpe grave, siseo largo que decae y un último 'pshh'."""
+    s = band(noise(dur, 1200 + seed), 1800, 10500) * env_exp(n(dur), 0.45) * np.minimum(1, tt(dur) / 0.01)
+    s += 0.8 * thump(58, dur, 0.18)
+    ultimo = band(noise(0.25, 1300 + seed), 2500, 9000) * np.hanning(n(0.25)) ** 0.7
+    i = n(dur * 0.72)
+    s[i:i + len(ultimo)] += 0.6 * ultimo[: max(0, len(s) - i)]
+    return fade(norm(s), 0.004, 0.2)
+
+
+def puertas_neumaticas(dur=1.1, seed=0):
+    """Puertas plegables de camión: siseo, clac metálico y el roce de las hojas."""
+    s = np.zeros(n(dur))
+    sis = band(noise(0.35, 1400 + seed), 2000, 9500) * np.hanning(n(0.35)) ** 0.6
+    s[: len(sis)] += sis
+    clac = metal([230, 410, 690], 0.25, 0.05, seed) + 0.8 * thump(110, 0.25, 0.04)
+    i = n(0.30)
+    s[i:i + len(clac)] += 0.9 * clac[: max(0, len(s) - i)]
+    roce = band(noise(0.5, 1500 + seed), 300, 1800) * np.hanning(n(0.5))
+    j = n(0.45)
+    s[j:j + len(roce)] += 0.35 * roce[: max(0, len(s) - j)]
+    return fade(norm(s), 0.003, 0.15)
+
+
+def timbre_parada(seed=0):
+    """Timbre de 'se solicita parada': dos tonos graves de 'ding' con caída corta."""
+    t = tt(1.6)
+    a = np.sin(2 * np.pi * 523 * t) + 0.35 * np.sin(2 * np.pi * 1046 * t)
+    b = np.sin(2 * np.pi * 415 * t) + 0.3 * np.sin(2 * np.pi * 830 * t)
+    s = a * env_exp(n(1.6), 0.32)
+    j = n(0.38)
+    s[j:] += (b * env_exp(n(1.6), 0.45))[: len(s) - j]
+    return fade(norm(s), 0.003, 0.3)
+
+
+def llantas_rechinido(dur=1.6, seed=0):
+    """Llantas que rechinan y se cortan de golpe (sugerido, lejano)."""
+    t = tt(dur)
+    f = np.linspace(1500, 3200, n(dur))
+    s = band(noise(dur, 1400 + seed), 1200, 4200) * (0.5 + 0.5 * np.sin(2 * np.pi * np.cumsum(f * 0.004) / SR * 40)) * np.minimum(1, t / 0.2)
+    corte = int(dur * 0.86 * SR)
+    s[corte:] = 0
+    return norm(s)
+
+
+def celular_vibra(dur=1.1):
+    """Celular que vibra sobre madera: dos zumbidos de 150 Hz con traqueteo."""
+    t = tt(dur)
+    z = np.sign(np.sin(2 * np.pi * 150 * t)) * 0.4 + np.sin(2 * np.pi * 150 * t)
+    g = np.zeros_like(t)
+    for a in (0.02, 0.5):
+        g += ((t > a) & (t < a + 0.38)).astype(float)
+    s = band(z, 80, 1800) * g + 0.25 * band(noise(dur, 1500), 300, 3000) * g
+    return fade(norm(s), 0.004, 0.05)
+
+
+def teclas(veces=18, seed=0, dur=2.2):
+    """Teclado de celular: clics suaves y desiguales."""
+    r = np.random.default_rng(seed)
+    out = np.zeros(n(dur))
+    for k in range(veces):
+        i = int((0.05 + k * (dur - 0.2) / veces + r.uniform(0, 0.04)) * SR)
+        c = band(noise(0.02, int(r.integers(0, 9999))), 1500, 7000) * env_exp(n(0.02), 0.005)
+        out[i:i + len(c)] += c * r.uniform(0.4, 1.0)
+    return norm(out)
+
+
+def paso_charco(seed=0):
+    """Paso sobre el pavimento mojado: golpe seco y chapoteo corto."""
+    from motor.audio.agua import chapoteo
+    s = 0.8 * step_concrete(seed)
+    c = chapoteo(0.25, seed, 0.15)
+    s = np.concatenate([s, np.zeros(max(0, len(c) - len(s)))])
+    s[: len(c)] += 0.5 * c
+    return norm(s)

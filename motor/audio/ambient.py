@@ -105,3 +105,32 @@ def fluorescente(dur, brillo=None, freq=120.0, seed=0):
             c = band(noise(0.02, seed * 50 + int(i)), 1200, 8000) * np.exp(-np.arange(int(0.02 * SR)) / SR / 0.004)
             sig[j:j + len(c)] += 0.9 * c[: max(0, len(sig) - j)]
     return fade(norm(sig), 0.02, 0.05)
+
+
+def lluvia(dur, seed=1, intensidad=1.0, interior=False):
+    """Lluvia en lámina: ruido filtrado con ráfagas de densidad y un rumor grave; interior=True la apaga contra el vidrio y la carrocería."""
+    t = tt(dur)
+    lo, hi = (500, 4200) if interior else (900, 9500)
+    sig = band(noise(dur, seed), lo, hi)
+    dens = np.convolve(noise(dur, seed + 1), np.ones(int(0.35 * SR)) / int(0.35 * SR), mode="same")
+    dens = 0.8 + 0.2 * dens / max(np.abs(dens).max(), 1e-6)
+    sig = sig * dens + 0.5 * band(noise(dur, seed + 2), 120, 700) * (0.7 if interior else 0.35)
+    r = np.random.default_rng(seed)
+    for _ in range(int(dur * 14 * intensidad)):                                    # gotas gordas contra el vidrio o la lámina
+        i = int(r.uniform(0, max(dur - 0.05, 0.01)) * SR)
+        g = band(noise(r.uniform(0.008, 0.02), int(r.integers(0, 99999))), 1800, 7000)
+        g = g * np.hanning(len(g))
+        m = min(len(g), len(sig) - i)
+        sig[i:i + m] += r.uniform(0.4, 1.2) * g[:m]
+    return fade(norm(sig), 0.6, 0.8)
+
+
+def motor_camion(dur, grave=1.0, seed=4, traqueteo=1.0):
+    """Motor diésel viejo al ralentí: pulsos graves (~11 Hz), rumor de cilindros y traqueteo de lámina. grave<1 lo sube de tono (acelera)."""
+    t = tt(dur)
+    f = 11.0 / max(grave, 0.2)
+    pulso = (0.55 + 0.45 * np.clip(np.sin(2 * np.pi * f * t), 0, 1) ** 2)
+    base = np.sin(2 * np.pi * 46 / max(grave, 0.2) * t) + 0.6 * np.sin(2 * np.pi * 92 / max(grave, 0.2) * t + 1.1) + 0.3 * np.sin(2 * np.pi * 138 / max(grave, 0.2) * t)
+    sig = band(base * pulso, 30, 420) + 0.35 * band(noise(dur, seed), 80, 900) * pulso
+    sig += 0.12 * traqueteo * band(noise(dur, seed + 5), 700, 2600) * (0.5 + 0.5 * np.sin(2 * np.pi * 2.3 * t))
+    return fade(norm(sig), 0.5, 0.6)

@@ -29,6 +29,11 @@ def line_audio(text, speaker):
     import numpy as np
     from motor.config import SR
     style = config.VOICES[speaker or "NARRADOR"]
+    if style.get("mapa"):                                       # tomas pregrabadas (p. ej. ElevenLabs): texto del subtítulo -> archivo
+        import json
+        carpeta = config.ROOT / style["mapa"]
+        toma = json.loads((carpeta / "lineas.json").read_text())[text]
+        return FX[style["fx"]](_desde_archivo(carpeta / toma["archivo"])) * style["gain"]
     f = style.get("file")
     if f and (config.ROOT / f).exists():
         return _desde_archivo(config.ROOT / f) * style["gain"]
@@ -52,6 +57,10 @@ def build():
             mod = config.scene_module(name)
             lines = []
             for i, (start, end, text, speaker) in enumerate(mod.SUBS):
+                if config.VOICES[speaker or "NARRADOR"].get("mudo"):    # diálogo que solo se lee: sin voz y sin alargar la escena
+                    lines.append({"start": start, "text": text, "speaker": speaker, "wav": None,
+                                  "dur": round(end - start, 3), "mudo": True})
+                    continue
                 audio = line_audio(text, speaker)
                 path = out_dir / f"{name}_{i}.wav"
                 sf.write(path, audio, SR)

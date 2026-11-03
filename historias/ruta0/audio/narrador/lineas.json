@@ -1,0 +1,230 @@
+{
+ "Esa noche pasó un camión sin número.": {
+  "archivo": "p1_s01_0.mp3",
+  "prompt": "[softly] [slowly] Esa noche pasó un camión sin número."
+ },
+ "Iván perdió el último camión de la noche.": {
+  "archivo": "p1_s03_0.mp3",
+  "prompt": "[softly] [slowly] Iván perdió el último camión de la noche."
+ },
+ "Bajo la lluvia esperó, y no pasó ninguno.": {
+  "archivo": "p1_s03_1.mp3",
+  "prompt": "[softly] [slowly] Bajo la lluvia esperó, y no pasó ninguno."
+ },
+ "Hasta que, entre la neblina, apareció otro.": {
+  "archivo": "p1_s04_0.mp3",
+  "prompt": "[softly] [slowly] Hasta que, entre la neblina, apareció otro."
+ },
+ "No traía número. Su letrero solo decía: cero.": {
+  "archivo": "p1_s04_1.mp3",
+  "prompt": "[whispers] [slowly] No traía número. Su letrero solo decía: cero."
+ },
+ "Iván subió.": {
+  "archivo": "p1_s04_2.mp3",
+  "prompt": "[softly] [slowly] Iván subió."
+ },
+ "El chofer le dio un boleto sin voltear a verlo.": {
+  "archivo": "p1_s05_0.mp3",
+  "prompt": "[softly] [slowly] El chofer le dio un boleto sin voltear a verlo."
+ },
+ "Los pasajeros iban arreglados, como para una fiesta.": {
+  "archivo": "p1_s05_1.mp3",
+  "prompt": "[softly] [slowly] Los pasajeros iban arreglados, como para una fiesta."
+ },
+ "Ninguno levantó la vista.": {
+  "archivo": "p1_s05_2.mp3",
+  "prompt": "[softly] [slowly] Ninguno levantó la vista."
+ },
+ "Nadie se movía.": {
+  "archivo": "p1_s06_0.mp3",
+  "prompt": "[softly] [slowly] Nadie se movía."
+ },
+ "El aliento de Iván empañaba el vidrio; el de los demás, no.": {
+  "archivo": "p1_s06_1.mp3",
+  "prompt": "[softly] [slowly] El aliento de Iván empañaba el vidrio; el de los demás, no."
+ },
+ "Nadie respiraba.": {
+  "archivo": "p1_s06_2.mp3",
+  "prompt": "[whispers] [slowly] Nadie respiraba."
+ },
+ "Pasaban paradas que Iván nunca había visto.": {
+  "archivo": "p1_s07_0.mp3",
+  "prompt": "[softly] [slowly] Pasaban paradas que Iván nunca había visto."
+ },
+ "Calles que no eran de su ciudad.": {
+  "archivo": "p1_s07_1.mp3",
+  "prompt": "[softly] [slowly] Calles que no eran de su ciudad."
+ },
+ "Tocó el timbre para bajarse.": {
+  "archivo": "p1_s07_2.mp3",
+  "prompt": "[softly] [slowly] Tocó el timbre para bajarse."
+ },
+ "El camión se detuvo. Iván se levantó.": {
+  "archivo": "p1_s08_0.mp3",
+  "prompt": "[softly] [slowly] El camión se detuvo. Iván se levantó."
+ },
+ "Y por primera vez, alguien se movió.": {
+  "archivo": "p1_s08_1.mp3",
+  "prompt": "[whispers] [slowly] Y por primera vez, alguien se movió."
+ },
+ "¿Dónde se baja Iván?": {
+  "archivo": "p1_s09_0.mp3",
+  "prompt": "[softly] [slowly] ¿Dónde se baja Iván?"
+ },
+ "Comenta «sigue», y te lo cuento en la parte dos.": {
+  "archivo": "p1_s09_1.mp3",
+  "prompt": "[softly] Comenta «sigue», y te lo cuento en la parte dos."
+ },
+ "En este camión, cada pasajero se baja donde murió.": {
+  "archivo": "p2_s01_0.mp3",
+  "prompt": "[softly] [slowly] En este camión, cada pasajero se baja donde murió."
+ },
+ "Iván subió al último camión: uno sin número.": {
+  "archivo": "p2_s03_0.mp3",
+  "prompt": "[softly] [slowly] Iván subió al último camión: uno sin número."
+ },
+ "Ninguno de sus pasajeros respira.": {
+  "archivo": "p2_s03_1.mp3",
+  "prompt": "[softly] [slowly] Ninguno de sus pasajeros respira."
+ },
+ "Y una pasajera no lo dejó bajar.": {
+  "archivo": "p2_s03_2.mp3",
+  "prompt": "[softly] [slowly] Y una pasajera no lo dejó bajar."
+ },
+ "En la Curva del Ahorcado, un señor se bajó.": {
+  "archivo": "p2_s04_0.mp3",
+  "prompt": "[softly] [slowly] En la Curva del Ahorcado, un señor se bajó."
+ },
+ "Junto a la curva había una cruz con flores,": {
+  "archivo": "p2_s04_1.mp3",
+  "prompt": "[softly] [slowly] Junto a la curva había una cruz con flores,"
+ },
+ "y en la cruz, su foto.": {
+  "archivo": "p2_s04_2.mp3",
+  "prompt": "[softly] [slowly] y en la cruz, su foto."
+ },
+ "En el Puente Viejo bajó una muchacha vestida de fiesta.": {
+  "archivo": "p2_s05_0.mp3",
+  "prompt": "[softly] [slowly] En el Puente Viejo bajó una muchacha vestida de fiesta."
+ },
+ "El barandal estaba roto.": {
+  "archivo": "p2_s05_1.mp3",
+  "prompt": "[softly] [slowly] El barandal estaba roto."
+ },
+ "Su asiento quedó vacío.": {
+  "archivo": "p2_s05_2.mp3",
+  "prompt": "[softly] [slowly] Su asiento quedó vacío."
+ },
+ "Arriba del chofer brillaba la ruta.": {
+  "archivo": "p2_s06_0.mp3",
+  "prompt": "[softly] [slowly] Arriba del chofer brillaba la ruta."
+ },
+ "Las paradas que pasaban se apagaban.": {
+  "archivo": "p2_s06_1.mp3",
+  "prompt": "[softly] [slowly] Las paradas que pasaban se apagaban."
+ },
+ "La última tenía un nombre: Iván.": {
+  "archivo": "p2_s06_2.mp3",
+  "prompt": "[whispers] [slowly] La última tenía un nombre: Iván."
+ },
+ "Ella no contestó. Solo señaló su boleto.": {
+  "archivo": "p2_s07_0.mp3",
+  "prompt": "[softly] [slowly] Ella no contestó. Solo señaló su boleto."
+ },
+ "En el boleto había una fecha.": {
+  "archivo": "p2_s08_0.mp3",
+  "prompt": "[softly] [slowly] En el boleto había una fecha."
+ },
+ "Era la de mañana.": {
+  "archivo": "p2_s08_1.mp3",
+  "prompt": "[whispers] [slowly] Era la de mañana."
+ },
+ "¿Se puede bajar antes de su parada?": {
+  "archivo": "p2_s09_0.mp3",
+  "prompt": "[softly] [slowly] ¿Se puede bajar antes de su parada?"
+ },
+ "Comenta «sigue» para la parte final.": {
+  "archivo": "p2_s09_1.mp3",
+  "prompt": "[softly] Comenta «sigue» para la parte final."
+ },
+ "Iván ya sabía cuál era su parada.": {
+  "archivo": "p3_s01_0.mp3",
+  "prompt": "[softly] [slowly] Iván ya sabía cuál era su parada."
+ },
+ "Tenía que bajarse antes.": {
+  "archivo": "p3_s01_1.mp3",
+  "prompt": "[softly] [slowly] Tenía que bajarse antes."
+ },
+ "En el camión sin número, cada pasajero se bajó donde murió.": {
+  "archivo": "p3_s03_0.mp3",
+  "prompt": "[softly] [slowly] En el camión sin número, cada pasajero se bajó donde murió."
+ },
+ "Y su boleto era de mañana.": {
+  "archivo": "p3_s03_1.mp3",
+  "prompt": "[softly] [slowly] Y su boleto era de mañana."
+ },
+ "Entonces, la pasajera habló.": {
+  "archivo": "p3_s04_0.mp3",
+  "prompt": "[softly] [slowly] Entonces, la pasajera habló."
+ },
+ "Iván tocó el timbre.": {
+  "archivo": "p3_s05_0.mp3",
+  "prompt": "[softly] [slowly] Iván tocó el timbre."
+ },
+ "El camión frenó en una parada a oscuras.": {
+  "archivo": "p3_s05_1.mp3",
+  "prompt": "[softly] [slowly] El camión frenó en una parada a oscuras."
+ },
+ "El chofer no volteó.": {
+  "archivo": "p3_s05_2.mp3",
+  "prompt": "[softly] [slowly] El chofer no volteó."
+ },
+ "Iván bajó.": {
+  "archivo": "p3_s06_0.mp3",
+  "prompt": "[softly] [slowly] Iván bajó."
+ },
+ "A su espalda, todos lo miraban.": {
+  "archivo": "p3_s06_1.mp3",
+  "prompt": "[softly] [slowly] A su espalda, todos lo miraban."
+ },
+ "No miró atrás.": {
+  "archivo": "p3_s06_2.mp3",
+  "prompt": "[whispers] [slowly] No miró atrás."
+ },
+ "Abrió los ojos en la banca de su parada.": {
+  "archivo": "p3_s07_0.mp3",
+  "prompt": "[softly] [slowly] Abrió los ojos en la banca de su parada."
+ },
+ "Entonces vibró su celular.": {
+  "archivo": "p3_s07_1.mp3",
+  "prompt": "[softly] [slowly] Entonces vibró su celular."
+ },
+ "Esa noche, Iván no se subió a ese coche.": {
+  "archivo": "p3_s08_0.mp3",
+  "prompt": "[softly] [slowly] Esa noche, Iván no se subió a ese coche."
+ },
+ "En su bolsillo seguía el boleto.": {
+  "archivo": "p3_s09_0.mp3",
+  "prompt": "[softly] [slowly] En su bolsillo seguía el boleto."
+ },
+ "Y en el vidrio de una tienda, su reflejo": {
+  "archivo": "p3_s09_1.mp3",
+  "prompt": "[softly] [slowly] Y en el vidrio de una tienda, su reflejo"
+ },
+ "seguía sentado en el camión.": {
+  "archivo": "p3_s09_2.mp3",
+  "prompt": "[softly] [slowly] seguía sentado en el camión."
+ },
+ "¿Se salvó? ¿O sigue en el camión?": {
+  "archivo": "p3_s09_3.mp3",
+  "prompt": "[whispers] [slowly] ¿Se salvó? ¿O sigue en el camión?"
+ },
+ "¿Iván despertó de verdad?": {
+  "archivo": "p3_s10_0.mp3",
+  "prompt": "[softly] [slowly] ¿Iván despertó de verdad?"
+ },
+ "Comenta: sí o no.": {
+  "archivo": "p3_s10_1.mp3",
+  "prompt": "[softly] Comenta: sí o no."
+ }
+}

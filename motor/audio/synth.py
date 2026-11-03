@@ -135,11 +135,16 @@ class Track:
             if length > 1.2:
                 ratio = (self.tmap(at + length) - start) / length
                 if ratio > 1.03:
-                    import warnings
-                    import librosa
-                    with warnings.catch_warnings():
-                        warnings.simplefilter("ignore")
-                        sig = librosa.effects.time_stretch(np.asarray(sig, dtype=float), rate=1 / ratio)
+                    from motor import config as _cfg
+                    if getattr(_cfg, "ESTIRAR_RAPIDO", False):                 # remuestreo lineal: muy rápido; baja un poco el tono (válido para fondos)
+                        x = np.asarray(sig, dtype=float)
+                        sig = np.interp(np.linspace(0, len(x) - 1, int(len(x) * ratio)), np.arange(len(x)), x)
+                    else:
+                        import warnings
+                        import librosa
+                        with warnings.catch_warnings():
+                            warnings.simplefilter("ignore")
+                            sig = librosa.effects.time_stretch(np.asarray(sig, dtype=float), rate=1 / ratio)
             at = start
         i = int(at * SR)
         if i >= len(self.buf) or len(sig) == 0:
