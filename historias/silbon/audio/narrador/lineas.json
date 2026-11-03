@@ -1,0 +1,94 @@
+{
+ "Si oyes este silbido…": {
+  "archivo": "g_0.mp3",
+  "prompt": "[whispers] Si oyes este silbido…"
+ },
+ "alguien en tu casa no amanece.": {
+  "archivo": "g_1.mp3",
+  "prompt": "[softly] alguien en tu casa no amanece."
+ },
+ "Imagina que la noche te alcanza en los llanos.": {
+  "archivo": "l_0.mp3",
+  "prompt": "[softly] Imagina que la noche te alcanza en los llanos."
+ },
+ "Un viejo llanero te jala del brazo.": {
+  "archivo": "l_1.mp3",
+  "prompt": "[softly] Un viejo llanero te jala del brazo."
+ },
+ "Adentro, un letrero con cuatro reglas.": {
+  "archivo": "r_0.mp3",
+  "prompt": "[softly] Adentro, un letrero con cuatro reglas."
+ },
+ "Regla uno: si el silbido suena cerca, está lejos.": {
+  "archivo": "r1_0.mp3",
+  "prompt": "[softly] Regla uno: si el silbido suena cerca, está lejos."
+ },
+ "Si suena lejos… ya está aquí.": {
+  "archivo": "r1_1.mp3",
+  "prompt": "[whispers] Si suena lejos… ya está aquí."
+ },
+ "Regla dos: nadie bebe aguardiente de noche.": {
+  "archivo": "r2_0.mp3",
+  "prompt": "[softly] Regla dos: nadie bebe aguardiente de noche."
+ },
+ "Regla tres: los perros nunca se callan.": {
+  "archivo": "r3_0.mp3",
+  "prompt": "[softly] Regla tres: los perros nunca se callan."
+ },
+ "Regla cuatro: si caen huesos junto a la puerta…": {
+  "archivo": "r4_0.mp3",
+  "prompt": "[softly] Regla cuatro: si caen huesos junto a la puerta…"
+ },
+ "cuéntalos en voz alta.": {
+  "archivo": "r4_1.mp3",
+  "prompt": "[whispers] cuéntalos en voz alta."
+ },
+ "Cuatro horas después, Ramiro destapa su botella.": {
+  "archivo": "t_0.mp3",
+  "prompt": "[softly] Cuatro horas después, Ramiro destapa su botella."
+ },
+ "Los perros ladran. Alguien los manda a callar.": {
+  "archivo": "t_1.mp3",
+  "prompt": "[softly] Los perros ladran. Alguien los manda a callar."
+ },
+ "Silencio.": {
+  "archivo": "s_0.mp3",
+  "prompt": "[whispers] Silencio."
+ },
+ "El silbido suena cerca. Todos sonríen.": {
+  "archivo": "s_1.mp3",
+  "prompt": "[softly] El silbido suena cerca. Todos sonríen."
+ },
+ "Pero ahora suena… lejísimos.": {
+  "archivo": "s_2.mp3",
+  "prompt": "[nervous] [softly] Pero ahora suena… lejísimos."
+ },
+ "Algo se sienta junto a la puerta.": {
+  "archivo": "p_0.mp3",
+  "prompt": "[whispers] Algo se sienta junto a la puerta."
+ },
+ "Un saco cae… y empieza a contar huesos.": {
+  "archivo": "p_1.mp3",
+  "prompt": "[whispers] Un saco cae… y empieza a contar huesos."
+ },
+ "Solo tú estás despierto.": {
+  "archivo": "o_0.mp3",
+  "prompt": "[whispers] Solo tú estás despierto."
+ },
+ "Si cuentas en voz alta, sabrá que lo oyes.": {
+  "archivo": "o_1.mp3",
+  "prompt": "[nervous] [softly] Si cuentas en voz alta, sabrá que lo oyes."
+ },
+ "Si callas… alguien no amanece.": {
+  "archivo": "o_2.mp3",
+  "prompt": "[whispers] Si callas… alguien no amanece."
+ },
+ "¿Cuentas los huesos… o te callas?": {
+  "archivo": "c_0.mp3",
+  "prompt": "[softly] ¿Cuentas los huesos… o te callas?"
+ },
+ "Comenta 1 para contar, o 2 para callar.": {
+  "archivo": "c_1.mp3",
+  "prompt": "[softly] Comenta 1 para contar, o 2 para callar."
+ }
+}
