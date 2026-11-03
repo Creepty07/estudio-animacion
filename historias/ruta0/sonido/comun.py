@@ -1,7 +1,7 @@
 """Piezas compartidas por las tres mezclas de Ruta 0 (versión con narrador por radio).
 
 Reparto de pesos: el sonido (lluvia, motor, frenos, silencios, golpes) lleva la tensión y el narrador la historia. Entre frases el fondo
-sube (bed_peak 0.30); debajo de la voz baja (ducking 0.75) y la voz va a 0.80 (subido el 2026-11-02: se oía bajita). Los silencios previos a cada susto se aplican a las dos pistas.
+sube (bed_peak 0.82); debajo de la voz baja (ducking 0.55) y la voz va a 0.95. Los silencios previos a cada susto se aplican a las dos pistas.
 Regla: los pasajeros no hacen ningún ruido; solo respiran Iván y el chofer al hablar, y suena el camión.
 """
 import numpy as np
@@ -41,8 +41,8 @@ def finalizar(cam, ev, env_cam, env_ev, voices, total_out, ganancia_db):
     cam.buf *= env_cam[:, None]
     ev.buf *= env_ev[:, None]
     bed = np.tanh((cam.buf + ev.buf) * 1.1)
-    out = master(bed, total_out, voices, 0.5, bed_peak=0.30, duck=0.75, voice_peak=0.80)
-    out = np.tanh(out * 1.2) / np.tanh(1.2)
+    out = master(bed, total_out, voices, 0.5, bed_peak=0.82, duck=0.55, voice_peak=0.95)
+    out = np.tanh(out * 1.5) / np.tanh(1.5)
     return out * 10 ** (ganancia_db / 20), total_out
 
 
