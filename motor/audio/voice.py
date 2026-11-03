@@ -69,7 +69,9 @@ def fx_radio_tetrico(x, seed=7):
     d = int(0.11 * SR)                                                              # cuarto vacío
     out = np.concatenate([y, np.zeros(d)])
     out[d:d + len(y)] += 0.16 * band(y, 250, 2600)
-    return norm(out, 0.85)
+    out = norm(out, 1.0)
+    out = np.tanh(out * 2.4) / np.tanh(2.4)                                         # compresión suave: sube el volumen percibido sin subir el pico
+    return norm(out, 0.9)
 
 
 def _vibrato(x, depth=0.0007, rate=5.2):
